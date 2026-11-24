@@ -13,7 +13,7 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 - `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
 - `bootstrap.mjs`: sustituye placeholders, escribe `harness.config.json` y valida el resultado.
 - `template.json`: manifiesto legible por máquina (versión, harness, repositorio, sitio, comandos y agentes). El sitio lo copia y comprueba que no diverge.
-- Tests de `docs-sync` y de `bootstrap`.
+- Tests de `docs-sync`, de `bootstrap` y del manifiesto.
 - Workflow de CI para documentación, tests y secretos.
 - `docs/harness.md` como registro de refinamientos y `MEMORY.md` como memoria operativa.
 
@@ -23,6 +23,10 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 - Wiki implementada; el diseño queda en `docs/template-spec.md`.
 - Panel de métricas: la traza vive en git y en `tasks.md`.
 - Código, datos o infraestructura de ningún proyecto.
+
+## Módulos opcionales
+
+- `codegraph`: índice local de código por MCP, **desactivado por defecto**. No es una dependencia del template ni de CI. Guía: `docs/codegraph.md`.
 
 ## Requisitos
 
@@ -72,7 +76,7 @@ node bootstrap.mjs --yes \
 ```bash
 node scripts/docs-sync.mjs --check
 node scripts/check-secrets.mjs
-node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs
+npm test
 ```
 
 5. Crea el primer cambio con `/opsx-propose <cambio>`.
@@ -83,11 +87,13 @@ node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs
 |---|---|
 | `AGENTS.md` | Contrato del proyecto: comandos, niveles, ramas, triaje y memoria. |
 | `harness.config.json` | Configuración generada por el bootstrap (no se versiona el ejemplo). |
+| `opencode.jsonc` | Configuración de OpenCode; `codegraph` queda desactivado por defecto. |
 | `.opencode/agents/` | Subagentes de implementación y revisión. |
 | `.opencode/commands/` | Comandos del flujo. |
 | `scripts/docs-sync.mjs` | Índices, memoria, compactación de tareas y plan ejecutable. |
 | `scripts/check-secrets.mjs` | Gate de secretos y términos prohibidos. |
 | `docs/` | Operación y decisiones. Empieza por `docs/index.md`. |
+| `docs/codegraph.md` | Módulo opcional de exploración de código. |
 | `openspec/changes/` | Cambios activos. |
 | `openspec/specs/` | Especificaciones vivas. |
 | `MEMORY.md` | Estado operativo, no registro histórico. |
@@ -135,6 +141,7 @@ El template no se sincroniza automáticamente con los proyectos que lo usan. Cad
 
 - `docs/template-spec.md`: alcance, bootstrap, comandos y diseño del módulo wiki.
 - `docs/harness.md`: por qué el harness es como es y registro de refinamientos.
+- `docs/codegraph.md`: módulo opcional de exploración de código.
 - `docs/index.md`: mapa generado de la documentación.
 
 ## Licencia

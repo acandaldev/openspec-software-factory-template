@@ -29,3 +29,24 @@ test("template.json solo referencia comandos y agentes que existen", async () =>
     await stat(path.join(ROOT, ".opencode", "agents", `${agent}.md`));
   }
 });
+
+test("la tabla de comandos vive solo en README.md", async () => {
+  const readme = await readFile(path.join(ROOT, "README.md"), "utf8");
+  const spec = await readFile(path.join(ROOT, "docs", "template-spec.md"), "utf8");
+
+  for (const command of manifest.commands) {
+    assert.match(readme, new RegExp(`\\| \`/${command}\` \\|`), `README no lista /${command}`);
+  }
+  assert.ok(!spec.includes("| Comando |"), "template-spec.md no debe duplicar la tabla de comandos");
+});
+
+test("opencode.jsonc deja codegraph desactivado por defecto", async () => {
+  const config = JSON.parse(await readFile(path.join(ROOT, "opencode.jsonc"), "utf8"));
+  const server = config.mcp?.servers?.codegraph;
+
+  assert.ok(server, "falta el servidor codegraph");
+  assert.equal(server.type, "local");
+  assert.deepEqual(server.command, ["codegraph", "serve", "--mcp"]);
+  assert.equal(server.disabled, true);
+  assert.equal(server.codemode, false);
+});

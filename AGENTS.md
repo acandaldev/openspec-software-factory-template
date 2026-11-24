@@ -22,6 +22,7 @@
 - Continuidad dentro del bloque: `/coordinar <cambio> <bloque>` encadena las tareas listas del bloque (orden de `docs-sync --plan`) sin preguntar entre una y otra. Paradas: tarea `[HARD]` tras su revisión, tercera ronda de `CAMBIOS NECESARIOS`, permiso denegado, hallazgo fuera del plan, fichero en colisión con otro carril, CI rojo, fin de bloque (PR) o el umbral de contexto.
 - Curar el harness: `/curar <cambio> [bloque]` o `/curar --semana` (propone filas para `docs/harness.md` §2; no cambia reglas sin aprobación). No se ejecuta por tarea: se hace al cerrar bloque o cambio; `--semana` es un barrido opcional de mantenimiento.
 - Gates de una tarea: build, tests filtrados, formato y `git status` en una sola llamada encadenada, con la salida filtrada; sin scripts intermedios.
+- Exploración opcional: si el proyecto activa `codegraph` (ver `docs/codegraph.md`), indexa cada worktree con `codegraph init . --yes` y usa `codegraph_explore` con `projectPath` del worktree; si no hay índice, `grep -n` y `read`. Sin `projectPath`, la consulta devuelve el árbol principal.
 
 ### Modelo por nivel
 

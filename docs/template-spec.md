@@ -41,15 +41,9 @@ Sustituye los placeholders de `AGENTS.md`, agentes y `revisar.md`, escribe
 
 ## 3. Comandos
 
-| Comando | Cuándo | Qué hace |
-|---|---|---|
-| `/opsx-propose` | Antes de código | Crea proposal, spec, design y tasks. |
-| `/implementar` | Una tarea | Brief + `implementer`; gates y commit. |
-| `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
-| `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
-| `/curar` | Cierre de bloque o cambio; `--semana` opcional | Propone filas para `docs/harness.md`. |
-| `/openspec-review` | Antes de codificar o al cerrar un cambio | Revisa coherencia de specs. |
-| `/opsx-verify`, `/opsx-sync`, `/opsx-archive` | Cierre | Verifica, sincroniza y archiva. |
+La tabla de comandos, cuándo se usan y qué hacen vive en `README.md` § Comandos.
+Este spec no la duplica: si cambia un comando, se actualiza el README y
+`template.json`; este documento solo cambia si varía el alcance.
 
 ## 4. Módulo wiki (opcional)
 
@@ -68,7 +62,20 @@ lo único que puede bloquear CI. Las contradicciones semánticas las revisa una
 persona. En la v0.1 la wiki queda fuera; se especifica aquí para no olvidar el
 diseño.
 
-## 5. Fuera de la v0.1
+## 5. Módulo CodeGraph (opcional)
+
+`opencode.jsonc` declara el servidor MCP `codegraph` con `disabled: true` y
+`codemode: false`. El template no instala el binario, no lo añade a
+`package.json` y no lo usa en CI ni en los gates.
+
+Para activarlo: `npm install -g @colbymchenry/codegraph`, poner
+`disabled: false`, indexar cada directorio con `codegraph init . --yes` y pasar
+`projectPath` en cada consulta. Sin índice propio, los agentes usan `grep` y
+`read`; `codegraph` sin `projectPath` devuelve el árbol principal.
+
+La guía operativa vive en `docs/codegraph.md`.
+
+## 6. Fuera de la v0.1
 
 - Segundo harness y adaptadores.
 - Wiki implementada y lint semántico.
@@ -76,7 +83,7 @@ diseño.
 - Datos, dominios, rutas o secretos de cualquier proyecto.
 - Un panel de métricas; la traza vive en git y en `tasks.md`.
 
-## 6. Criterios de aceptación
+## 7. Criterios de aceptación
 
 1. Un proyecto nuevo puede copiar el template, ejecutar `bootstrap` y pasar
    `docs-sync --check` y `check-secrets`.

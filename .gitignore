@@ -20,7 +20,7 @@ paralelo/
 .review/
 *.review/
 
-# Índices locales
+# Índices locales (CodeGraph; ver docs/codegraph.md)
 .codegraph/
 
 # Sistema y editores
