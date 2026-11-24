@@ -8,15 +8,7 @@ Argumentos: `$ARGUMENTS` (ejemplo: `<cambio> 2.1-2.7` o `<cambio> 2.2`).
 
 ## Modelo de la revisión
 
-Tabla única (coincide con `AGENTS.md` § Comandos, «Modelo por nivel»):
-
-| Nivel del alcance | `model` del subagente `reviewer` |
-|---|---|
-| `[HARD]` (o alcance mixto con alguna `[HARD]`) | `{{modelReviewHard}}` |
-| NORMAL | `{{modelReviewNormal}}` |
-| `[FAST]` | `{{modelReviewFast}}` |
-
-El nivel se toma del alcance más alto: si la revisión incluye una tarea `[HARD]`, todo el alcance se revisa con el modelo de `[HARD]`. El coordinador pasa el `model` explícito en la invocación.
+Tabla única: `AGENTS.md` § Comandos («Modelo por nivel»). El nivel se toma del alcance más alto: si la revisión incluye una tarea `[HARD]`, todo el alcance se revisa con el modelo de `[HARD]`. El coordinador pasa el `model` explícito en la invocación; el defecto del agente es el de `[HARD]`, así que un olvido no degrada la revisión, pero NORMAL y `[FAST]` deben llevar su modelo explícito.
 
 ## Reglas para esta sesión principal (coordinador)
 

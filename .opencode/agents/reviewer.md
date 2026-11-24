@@ -103,13 +103,7 @@ Eres el revisor de implementación de este repositorio. No modificas el carril n
 
 ## Brief
 
-El brief indica el modelo y el nivel del alcance. Tabla única (coincide con `AGENTS.md` § Comandos, «Modelo por nivel»):
-
-| Nivel del alcance | `model` esperado |
-|---|---|
-| `[HARD]` (o alcance mixto con alguna `[HARD]`) | `{{modelReviewHard}}` |
-| NORMAL | `{{modelReviewNormal}}` |
-| `[FAST]` | `{{modelReviewFast}}` |
+El brief indica el modelo y el nivel del alcance. El modelo esperado es el que `AGENTS.md` § Comandos («Modelo por nivel») asigna al nivel del alcance.
 
 No asumas el modelo de la sesión. Si el brief no indica el modelo o no coincide con el nivel, responde `FALTA CONTEXTO` y pide el correcto antes de revisar.
 

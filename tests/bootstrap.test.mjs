@@ -96,6 +96,7 @@ test("bootstrap sustituye placeholders, escribe configuración y valida", async 
     assert.ok(!agents.includes("{{"), "AGENTS.md conserva placeholders");
     assert.ok(agents.includes("Acme Notes"));
     assert.ok(agents.includes("provider/model-hard#high"));
+    assert.ok(agents.includes("provider/model-review-normal"));
 
     const reviewer = await readFile(path.join(dir, ".opencode/agents/reviewer.md"), "utf8");
     assert.ok(!reviewer.includes("{{"), "reviewer.md conserva placeholders");
@@ -103,7 +104,7 @@ test("bootstrap sustituye placeholders, escribe configuración y valida", async 
 
     const revisar = await readFile(path.join(dir, ".opencode/commands/revisar.md"), "utf8");
     assert.ok(!revisar.includes("{{"), "revisar.md conserva placeholders");
-    assert.ok(revisar.includes("provider/model-review-normal"));
+    assert.ok(revisar.includes("AGENTS.md"), "revisar.md delega la matriz en AGENTS.md");
 
     assert.ok(await exists(path.join(dir, "docs/index.md")));
     assert.ok(await exists(path.join(dir, "openspec/changes")));
