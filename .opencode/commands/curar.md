@@ -11,7 +11,7 @@ Argumentos: `$ARGUMENTS`
 
 ## 1. Alcance
 
-- La vía principal es el cierre de un bloque o de un cambio. `--semana` es un barrido de mantenimiento para cuando no hay cierres recientes.
+- La cadencia la fija `AGENTS.md` § Comandos; este comando no la redefine.
 - Si es `--semana`, usa `git log --since="7 days ago"` y revisa `MEMORY.md` § Pendiente; si no hay traza, para.
 - Si es `<cambio> [bloque]`, lee solo `openspec/changes/<cambio>/tasks.md` (líneas de tarea y `## Revisiones`), no el cambio entero. Usa el rango de commits del bloque o del cambio; si está en un worktree, usa su ruta.
 - No leas código de producción salvo que la traza lo exija. El curador trabaja con evidencia, no con el diff completo.

@@ -54,8 +54,4 @@ Lo que este proyecto descubra y sea genérico se propone al template público:
 
 ## 6. Cómo se mantiene
 
-- Al cerrar un bloque, si hubo incidente o patrón.
-- Al cerrar un cambio, antes de archivar.
-- Opcionalmente una vez por semana, si no ha habido cierres recientes y hay traza acumulada.
-
-La cadencia principal es una revisión humana al cerrar bloque o cambio. No hay un cron que cure: la comprobación periódica solo valida la documentación.
+La cadencia y el alcance de `/curar` viven en `AGENTS.md` § Comandos. No hay un cron que cure: la comprobación periódica solo valida la documentación.
