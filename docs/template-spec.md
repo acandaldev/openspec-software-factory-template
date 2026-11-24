@@ -14,9 +14,6 @@ se etiqueta como release.
 La v0.1 es un template OpenCode-only para proyectos que ya usan OpenSpec. El
 inventario funcional vive en `README.md` § Qué incluye; este spec no lo duplica.
 
-Los agentes ejecutan los gates en Bash (Git Bash en Windows o WSL); PowerShell
-no es un shell soportado.
-
 ## 2. Bootstrap
 
 `node bootstrap.mjs` pide o recibe por flags:
