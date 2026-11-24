@@ -20,6 +20,7 @@ La v0.1 es un template OpenCode-only para proyectos que ya usan OpenSpec. Incluy
 - `scripts/docs-sync.mjs` y sus tests;
 - `scripts/check-secrets.mjs`;
 - `bootstrap.mjs` para sustituir placeholders y generar `harness.config.json`;
+- `template.json` como manifiesto legible por máquina;
 - workflow de documentación y harness;
 - `docs/harness.md` como registro de decisiones;
 - `MEMORY.md`, `opencode.jsonc` y `data/forbidden.json`.
@@ -84,3 +85,5 @@ diseño.
 3. `docs/index.md` se genera desde el frontmatter de `docs/`.
 4. `/curar` tiene un registro donde escribir y no cambia reglas sin aprobación.
 5. El template no contiene datos del proyecto de origen.
+6. `template.json` coincide con `package.json` y con los comandos y agentes existentes.
+7. El sitio público puede comparar su copia de `template.json` con la del template y fallar si divergen.

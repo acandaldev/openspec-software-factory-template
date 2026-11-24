@@ -12,6 +12,7 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 - `scripts/docs-sync.mjs`: genera `docs/index.md`, compacta `tasks.md`, archiva el detalle en `tasks-history.md` y corrige el avance de `MEMORY.md`.
 - `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
 - `bootstrap.mjs`: sustituye placeholders, escribe `harness.config.json` y valida el resultado.
+- `template.json`: manifiesto legible por máquina (versión, harness, repositorio, sitio, comandos y agentes). El sitio lo copia y comprueba que no diverge.
 - Tests de `docs-sync` y de `bootstrap`.
 - Workflow de CI para documentación, tests y secretos.
 - `docs/harness.md` como registro de refinamientos y `MEMORY.md` como memoria operativa.
@@ -127,6 +128,8 @@ No guardes credenciales en el repositorio. `scripts/check-secrets.mjs` corre en 
 ## Actualizar el template
 
 El template no se sincroniza automáticamente con los proyectos que lo usan. Cada release se compara y se porta a mano, revisando primero qué aplica y qué no. Los cambios de una v0.1 no prometen compatibilidad con adaptaciones locales.
+
+`template.json` es el contrato legible por máquina. Si cambias la versión, un comando o un agente, actualízalo en el mismo commit; el test de manifest lo verifica. El sitio público guarda una copia en `data/template.json` y su CI falla si divergen.
 
 ## Documentación
 

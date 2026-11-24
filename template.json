@@ -1,0 +1,20 @@
+{
+  "name": "openspec-software-factory-template",
+  "version": "0.1.0",
+  "label": "v0.1",
+  "harness": "opencode",
+  "repository": "https://github.com/acandaldev/openspec-software-factory-template",
+  "site": "https://acandaldev.github.io/openspec-software-factory/",
+  "commands": [
+    "implementar",
+    "revisar",
+    "coordinar",
+    "curar",
+    "openspec-review"
+  ],
+  "agents": [
+    "implementer",
+    "reviewer",
+    "openspec-reviewer"
+  ]
+}
