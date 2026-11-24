@@ -26,6 +26,7 @@ Solo entran decisiones que cambiaron el comportamiento del sistema. Un ajuste de
 |---|---|---|---|---|---|
 | — | — | — | — | — | — |
 | 24-nov | Incidente | Los briefs del coordinador endurecían el protocolo: pedían 2 pasadas y 3 mutaciones en tareas NORMAL, contra `implementer.md` y el `AGENTS.md` del stack, con filtro ancho | El brief no endurece el protocolo: mutaciones y pasadas verdes las fija el nivel (1 y 1 en NORMAL/`[FAST]`; 2 y 2 en `[HARD]` o concurrencia); el filtro son las clases tocadas; si hace falta más evidencia, se sube el nivel de la tarea | `implementar`, `coordinar`, `implementer` | `6b752e5` |
+| 25-nov | Propio | El coordinador empujaba y esperaba CI por tarea, pero los workflows de código corren en la PR; el push por tarea añadía pasos sin gate de código | El push y la espera del CI son del bloque o de la PR; la evidencia intra-bloque son los gates locales y el commit | `AGENTS.md`, `coordinar`, `implementar`, `revisar` | este commit |
 
 ## 3. Métricas
 
