@@ -13,7 +13,7 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 - `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
 - `bootstrap.mjs`: sustituye placeholders, escribe `harness.config.json` y valida el resultado.
 - `template.json`: manifiesto legible por máquina (versión, harness, repositorio, sitio, comandos y agentes). El sitio lo copia y comprueba que no diverge.
-- Tests de `docs-sync`, de `bootstrap` y del manifiesto.
+- Tests de `docs-sync`, de `bootstrap`, del manifiesto y de permisos de agentes.
 - Workflow de CI para documentación, tests y secretos.
 - `docs/harness.md` como registro de refinamientos y `MEMORY.md` como memoria operativa.
 
@@ -87,7 +87,7 @@ npm test
 | Ruta | Para qué |
 |---|---|
 | `AGENTS.md` | Contrato del proyecto: comandos, niveles, ramas, triaje y memoria. |
-| `harness.config.json` | Configuración generada por el bootstrap (no se versiona el ejemplo). |
+| `harness.config.json` | Configuración generada por `bootstrap.mjs`; el ejemplo versionado es `harness.config.example.json`. |
 | `opencode.jsonc` | Configuración de OpenCode; `codegraph` queda desactivado por defecto. |
 | `.opencode/agents/` | Subagentes de implementación y revisión. |
 | `.opencode/commands/` | Comandos del flujo. |
@@ -118,8 +118,8 @@ npm test
 La etiqueta de `tasks.md` decide el modelo de la sesión hija y el tamaño del lote:
 
 - `[HARD]`: una tarea por ejecución y revisión por tarea.
-- NORMAL: lotes de tareas del mismo bloque.
-- `[FAST]`: lotes mayores del mismo grupo.
+- NORMAL: lotes de tareas del mismo bloque; revisión al cerrar el bloque.
+- `[FAST]`: lotes mayores del mismo grupo; revisión al cerrar el bloque.
 
 La tabla canónica, con modelos y umbrales exactos, vive en `AGENTS.md` § Comandos («Modelo por nivel»). El coordinador pasa el modelo explícito y verifica la línea `Agente:` del informe de revisión contra `AGENTS.md`. Si no coincide, la revisión no es válida.
 
@@ -140,7 +140,7 @@ El template no se sincroniza automáticamente con los proyectos que lo usan. Cad
 
 ## Documentación
 
-- `docs/template-spec.md`: alcance, bootstrap, comandos y diseño del módulo wiki.
+- `docs/template-spec.md`: alcance, bootstrap, comandos, módulos opcionales y criterios de aceptación.
 - `docs/harness.md`: por qué el harness es como es y registro de refinamientos.
 - `docs/codegraph.md`: módulo opcional de exploración de código.
 - `docs/index.md`: mapa generado de la documentación.

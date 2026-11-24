@@ -1,6 +1,6 @@
 ---
 type: Proceso
-hint: alcance, bootstrap, comandos y módulo wiki
+hint: alcance, bootstrap, comandos, módulos opcionales y criterios
 ---
 
 # Especificación del template
