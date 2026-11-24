@@ -38,7 +38,7 @@ Las métricas se leen de la traza, no de un panel:
 
 ## 4. Lo que no copiamos, y por qué
 
-- **Un segundo harness en la v1.** OpenCode es el único soportado; los adaptadores quedan para después.
+- **Un segundo harness en la v0.1.** OpenCode es el único soportado; los adaptadores quedan para después.
 - **Herramientas de diagnóstico personal.** Sin consumidor en CI, se pudren.
 - **Datos, dominios, rutas o decisiones del proyecto de origen.** Cada proyecto escribe su historia.
 - **Un agente autónomo que cambie reglas.** El curador propone; el humano aprueba.
