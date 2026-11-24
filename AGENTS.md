@@ -30,7 +30,7 @@ La etiqueta de `tasks.md` decide el modelo de la sesión hija; el coordinador lo
 | Nivel | Implementar | Revisar | Ejecución |
 |---|---|---|---|
 | `[HARD]` | `{{modelImplementHard}}` | `{{modelReviewHard}}` | 1 a 1 |
-| NORMAL | `{{modelImplementNormal}}` | `{{modelReviewNormal}}` | 1 a 1 (lotes de 1–3) |
+| NORMAL | `{{modelImplementNormal}}` | `{{modelReviewNormal}}` | Lotes de 1–3, una invocación por lote |
 | `[FAST]` | `{{modelImplementFast}}` | `{{modelReviewFast}}` | Lotes de 3–5 |
 
 El coordinador pasa el modelo explícito según la etiqueta y verifica la línea `Agente:` del informe contra esta tabla; si no coincide, la revisión no es válida: se relanza con el modelo correcto y no se registra la fila. Cualquier otra elección se anota en la traza.
