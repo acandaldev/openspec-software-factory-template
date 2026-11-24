@@ -115,13 +115,13 @@ npm test
 
 ## Niveles y modelos
 
-La etiqueta de `tasks.md` decide el modelo de la sesión hija:
+La etiqueta de `tasks.md` decide el modelo de la sesión hija y el tamaño del lote:
 
 - `[HARD]`: una tarea por ejecución y revisión por tarea.
-- NORMAL: lotes de 1–3 tareas del mismo bloque.
-- `[FAST]`: lotes de 3–5 tareas del mismo grupo.
+- NORMAL: lotes de tareas del mismo bloque.
+- `[FAST]`: lotes mayores del mismo grupo.
 
-El coordinador pasa el modelo explícito y verifica la línea `Agente:` del informe de revisión contra `AGENTS.md`. Si no coincide, la revisión no es válida.
+La tabla canónica, con modelos y umbrales exactos, vive en `AGENTS.md` § Comandos («Modelo por nivel»). El coordinador pasa el modelo explícito y verifica la línea `Agente:` del informe de revisión contra `AGENTS.md`. Si no coincide, la revisión no es válida.
 
 ## Secretos y datos
 

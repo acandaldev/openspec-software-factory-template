@@ -23,7 +23,7 @@ Sigue la política de `AGENTS.md` (§ Ramas y PR). Antes de invocar `implementer
    - No leas `proposal.md`, `design.md`, `specs/**` ni `tasks.md` completo aquí.
    - No ejecutes `openspec instructions apply` ni escribas el código directamente en la sesión principal.
 3. **Invocación al subagente `implementer`**:
-   - Agrupa por nivel dentro del mismo bloque: `[HARD]` siempre **1 a 1**; NORMAL **1–3 tareas del mismo bloque** en una invocación; `[FAST]` **3–5 tareas** del mismo grupo. No mezcles niveles en una invocación: el modelo lo fija el nivel más alto del lote.
+   - Agrupa por nivel dentro del mismo bloque según la columna «Ejecución» de `AGENTS.md` § Comandos («Modelo por nivel»). No mezcles niveles en una invocación: el modelo lo fija el nivel más alto del lote.
    - Pásale en el brief, con estas claves exactas (el implementer las copia literales en el commit):
      - `Brief-Cambio`: `<cambio>` · **Worktree**: `paralelo/<cambio>-<bloque>` (ruta absoluta); trabaja y commitea ahí, nunca en el árbol principal.
      - `Brief-Tareas`: `<id>` o la lista del lote · `Brief-Nivel`: `[FAST]` | `NORMAL` | `[HARD]` (si es `[HARD]`, exige verificar atomicidad transaccional, concurrencia, idempotencia y casos borde).
