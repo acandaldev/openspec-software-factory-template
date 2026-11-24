@@ -114,6 +114,47 @@ test("bootstrap sustituye placeholders, escribe configuración y valida", async 
   }
 });
 
+function assertSchema(example, generated, at = "harness.config") {
+  if (typeof example === "string" && /^\{\{[^}]+\}\}$/.test(example)) return;
+
+  if (Array.isArray(example)) {
+    assert.ok(Array.isArray(generated), `${at}: se esperaba un array`);
+    assert.equal(generated.length, example.length, `${at}: longitud`);
+    example.forEach((value, index) => assertSchema(value, generated[index], `${at}[${index}]`));
+    return;
+  }
+
+  if (example && typeof example === "object") {
+    assert.ok(
+      generated && typeof generated === "object" && !Array.isArray(generated),
+      `${at}: se esperaba un objeto`,
+    );
+    assert.deepEqual(Object.keys(example).sort(), Object.keys(generated).sort(), `${at}: claves`);
+    for (const key of Object.keys(example)) {
+      assertSchema(example[key], generated[key], `${at}.${key}`);
+    }
+    return;
+  }
+
+  assert.deepEqual(generated, example, `${at}: valor por defecto`);
+}
+
+test("harness.config.example.json mantiene el esquema del bootstrap", async () => {
+  const dir = await makeProject();
+  try {
+    const result = runBootstrap(dir);
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+
+    const generated = JSON.parse(await readFile(path.join(dir, "harness.config.json"), "utf8"));
+    const example = JSON.parse(
+      await readFile(path.join(ROOT, "harness.config.example.json"), "utf8"),
+    );
+    assertSchema(example, generated);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
 test("bootstrap rechaza sobrescribir harness.config.json sin --force", async () => {
   const dir = await makeProject();
   try {
