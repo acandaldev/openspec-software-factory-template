@@ -31,7 +31,7 @@ Sigue la política de `AGENTS.md` (§ Ramas y PR). Antes de invocar `implementer
      - `Brief-Aceptacion`: el criterio de aceptación en una línea, observable y verificable.
      - `Brief-Ficheros`: las rutas que el alcance debe tocar, y solo esas.
      - `Brief-Ronda`: solo en un delta de revisión.
-     - **El brief no endurece el protocolo**: `implementer.md` fija mutaciones y pasadas verdes (1 mutación y 1 pasada en NORMAL/`[FAST]`; 2 y 2 en `[HARD]` o concurrencia). No pidas más en el brief: si hace falta más evidencia, sube el nivel de la tarea. El filtro de test son las clases tocadas; el filtro ancho solo si el cambio toca un contrato compartido. Y si la tarea cumple dos o más de los criterios de `AGENTS.md` § Tamaño de una tarea, se parte antes de empezar; no se lanza entera.
+     - **El brief no endurece el protocolo**: las mutaciones y pasadas verdes las fija `implementer.md` según el nivel. No pidas más en el brief: si hace falta más evidencia, sube el nivel de la tarea. El filtro de test son las clases tocadas; el filtro ancho solo si el cambio toca un contrato compartido. Y si la tarea cumple dos o más de los criterios de `AGENTS.md` § Tamaño de una tarea, se parte antes de empezar; no se lanza entera.
 4. **Control de parada y verificación de coste**:
    - Si `implementer` devuelve bloqueo, fallo de tests/build no resuelto, necesidad de nueva dependencia o incoherencia del plan, **detén la secuencia inmediatamente** y muéstrale el problema al usuario.
    - Si `implementer` agota pasos sin marcar `tasks.md`, **no marques a ciegas**: ejecuta tú los gates de `AGENTS.md` y, solo si están en verde, marca la tarea con la traza advirtiendo de que el cierre lo hizo el coordinador.
