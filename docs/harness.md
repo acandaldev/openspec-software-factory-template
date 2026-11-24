@@ -43,15 +43,6 @@ Las métricas se leen de la traza, no de un panel:
 - **Datos, dominios, rutas o decisiones del proyecto de origen.** Cada proyecto escribe su historia.
 - **Un agente autónomo que cambie reglas.** El curador propone; el humano aprueba.
 
-## 5. Candidatos a plantilla
-
-Lo que este proyecto descubra y sea genérico se propone al template público:
-
-- comandos o agentes que resuelvan un fallo repetido;
-- reglas de `AGENTS.md` que eviten un incidente;
-- scripts con un consumidor claro en CI;
-- documentos de `docs/` que sirvan a cualquier proyecto.
-
-## 6. Cómo se mantiene
+## 5. Cómo se mantiene
 
 La cadencia y el alcance de `/curar` viven en `AGENTS.md` § Comandos. No hay un cron que cure: la comprobación periódica solo valida la documentación.
