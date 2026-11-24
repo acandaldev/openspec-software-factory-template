@@ -92,4 +92,3 @@ La guía operativa vive en `docs/codegraph.md`.
 4. `/curar` tiene un registro donde escribir y no cambia reglas sin aprobación.
 5. El template no contiene datos del proyecto de origen.
 6. `template.json` coincide con `package.json` y con los comandos y agentes existentes.
-7. El sitio público puede comparar su copia de `template.json` con la del template y fallar si divergen.
