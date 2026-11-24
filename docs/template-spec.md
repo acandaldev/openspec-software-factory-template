@@ -11,23 +11,11 @@ se etiqueta como release.
 
 ## 1. Alcance de la v0.1
 
-La v0.1 es un template OpenCode-only para proyectos que ya usan OpenSpec. Incluye:
-
-- contrato genérico en `AGENTS.md` con placeholders;
-- agentes `implementer`, `reviewer` y `openspec-reviewer`;
-- comandos `/implementar`, `/revisar`, `/coordinar`, `/curar` y `/openspec-review`;
-- `scripts/docs-sync.mjs` y sus tests;
-- `scripts/check-secrets.mjs`;
-- `bootstrap.mjs` para sustituir placeholders y generar `harness.config.json`;
-- `template.json` como manifiesto legible por máquina;
-- workflow de documentación y harness;
-- `docs/harness.md` como registro de decisiones;
-- `MEMORY.md`, `opencode.jsonc` y `data/forbidden.json`.
+La v0.1 es un template OpenCode-only para proyectos que ya usan OpenSpec. El
+inventario funcional vive en `README.md` § Qué incluye; este spec no lo duplica.
 
 Los agentes ejecutan los gates en Bash (Git Bash en Windows o WSL); PowerShell
 no es un shell soportado.
-
-No incluye la web, los datos del proyecto de origen ni un segundo harness.
 
 ## 2. Bootstrap
 
@@ -80,11 +68,10 @@ La guía operativa vive en `docs/codegraph.md`.
 
 ## 6. Fuera de la v0.1
 
-- Segundo harness y adaptadores.
-- Wiki implementada y lint semántico.
-- Herramientas de diagnóstico personal.
-- Datos, dominios, rutas o secretos de cualquier proyecto.
-- Un panel de métricas; la traza vive en git y en `tasks.md`.
+El inventario de exclusiones vive en `README.md` § Qué no incluye. Además,
+quedan fuera los adaptadores de un segundo harness, el lint semántico de la
+wiki, las herramientas de diagnóstico personal y cualquier dominio, ruta o
+secreto de un proyecto concreto.
 
 ## 7. Criterios de aceptación
 
