@@ -8,4 +8,4 @@ Mapa de `docs/`. Abre el documento y solo la sección que toque.
 |---|---|---|---|---|---|
 | [CodeGraph (opcional)](codegraph.md) | Guía | módulo opcional de exploración de código con CodeGraph | stable | — | 3 KB |
 | [Cómo trabajamos: harness, bucles y refinamientos](harness.md) | Proceso | bucles, registro de refinamientos y mantenimiento del harness | stable | — | 3 KB |
-| [Especificación del template](template-spec.md) | Proceso | alcance, bootstrap, comandos y módulo wiki | stable | — | 4 KB |
+| [Especificación del template](template-spec.md) | Proceso | alcance, bootstrap, comandos y módulo wiki | stable | — | 3 KB |
