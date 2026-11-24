@@ -25,7 +25,7 @@ Solo entran decisiones que cambiaron el comportamiento del sistema. Un ajuste de
 | Fecha | Origen | Hueco | Decisión | Dónde | Commit |
 |---|---|---|---|---|---|
 | — | — | — | — | — | — |
-| 24-nov | Incidente | Los briefs del coordinador endurecían el protocolo: pedían 2 pasadas y 3 mutaciones en tareas NORMAL, contra `implementer.md` y el `AGENTS.md` del stack, con filtro ancho | El brief no endurece el protocolo: mutaciones y pasadas verdes las fija el nivel (1 y 1 en NORMAL/`[FAST]`; 2 y 2 en `[HARD]` o concurrencia); el filtro son las clases tocadas; si hace falta más evidencia, se sube el nivel de la tarea | `implementar`, `coordinar`, `implementer` | este commit |
+| 24-nov | Incidente | Los briefs del coordinador endurecían el protocolo: pedían 2 pasadas y 3 mutaciones en tareas NORMAL, contra `implementer.md` y el `AGENTS.md` del stack, con filtro ancho | El brief no endurece el protocolo: mutaciones y pasadas verdes las fija el nivel (1 y 1 en NORMAL/`[FAST]`; 2 y 2 en `[HARD]` o concurrencia); el filtro son las clases tocadas; si hace falta más evidencia, se sube el nivel de la tarea | `implementar`, `coordinar`, `implementer` | `6b752e5` |
 
 ## 3. Métricas
 

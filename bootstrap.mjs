@@ -123,7 +123,7 @@ async function main() {
     reviewHard: flags["review-hard"] ?? "",
     reviewNormal: flags["review-normal"] ?? "",
     reviewFast: flags["review-fast"] ?? "",
-    reviewCopyDir: flags["review-copy-dir"] ?? "$HOME/.cache/opencode",
+    reviewCopyDir: flags["review-copy-dir"] ?? ".review",
     mainBranch: flags["main-branch"] ?? "main",
   };
 

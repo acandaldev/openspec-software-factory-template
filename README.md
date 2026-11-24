@@ -49,11 +49,11 @@ También acepta flags para automatizar:
 node bootstrap.mjs --yes \
   --name "Acme Notes" \
   --description "Notas internas del equipo" \
-  --stack "Node + TypeScript" \
-  --source-dirs "src/" \
-  --build "npm run build" \
-  --test "npm test" \
-  --format "npm run format" \
+  --stack "stack del proyecto" \
+  --source-dirs "ruta/al/codigo/" \
+  --build "comando-de-build" \
+  --test "comando-de-test" \
+  --format "comando-de-formato" \
   --implement-hard "<proveedor>/<modelo>#high" \
   --implement-normal "<proveedor>/<modelo>" \
   --implement-fast "<proveedor>/<modelo>" \
@@ -64,7 +64,7 @@ node bootstrap.mjs --yes \
   --main-branch main
 ```
 
-`node bootstrap.mjs --help` muestra todas las opciones. Si `harness.config.json` ya existe, el bootstrap se niega a sobrescribirlo salvo que uses `--force`.
+`node bootstrap.mjs --help` muestra todas las opciones. Sustituye los valores de ejemplo por los comandos reales de tu proyecto. Si `harness.config.json` ya existe, el bootstrap se niega a sobrescribirlo salvo que uses `--force`.
 
 3. Revisa `AGENTS.md`, `.opencode/agents/*.md` y `.opencode/commands/revisar.md`: los placeholders deben haber desaparecido.
 4. Comprueba los gates:
@@ -101,7 +101,7 @@ node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs
 | `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
 | `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
 | `/curar` | Cierre de bloque o cambio; `--semana` opcional | Propone filas para `docs/harness.md`; no cambia reglas sin aprobación. |
-| `/openspec-review` | Cierre de cambio | Revisa coherencia entre artefactos. |
+| `/openspec-review` | Antes de codificar o al cerrar un cambio | Revisa coherencia entre artefactos. |
 | `/opsx-verify`, `/opsx-sync`, `/opsx-archive` | Cierre | Verifica, sincroniza y archiva. |
 
 `/opsx-*` vienen de OpenSpec; el resto los aporta el template.

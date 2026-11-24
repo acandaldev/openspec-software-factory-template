@@ -27,15 +27,15 @@ const FLAGS = [
   "--description",
   "Notas internas del equipo",
   "--stack",
-  "Node + TypeScript",
+  "stack de ejemplo",
   "--source-dirs",
-  "src/",
+  "source/",
   "--build",
-  "npm run build",
+  "build-command",
   "--test",
-  "npm test",
+  "test-command",
   "--format",
-  "npm run format",
+  "format-command",
   "--implement-hard",
   "provider/model-hard#high",
   "--implement-normal",
@@ -87,7 +87,7 @@ test("bootstrap sustituye placeholders, escribe configuración y valida", async 
     const config = JSON.parse(await readFile(path.join(dir, "harness.config.json"), "utf8"));
     assert.equal(config.project.slug, "acme-notes");
     assert.equal(config.project.displayName, "Acme Notes");
-    assert.equal(config.stack.buildCommand, "npm run build");
+    assert.equal(config.stack.buildCommand, "build-command");
     assert.equal(config.models.implementHard, "provider/model-hard#high");
     assert.equal(config.reviewCopyDir, ".review");
     assert.equal(config.docs.mainBranch, "main");
