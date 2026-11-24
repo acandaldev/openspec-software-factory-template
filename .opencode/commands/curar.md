@@ -1,17 +1,18 @@
 ---
-description: "Convierte la traza de un bloque, cambio o semana en propuestas de refinamiento para docs/harness.md, con aprobación humana"
+description: "Convierte la traza de un bloque o cambio (o de los últimos 7 días con `--semana`) en propuestas de refinamiento para docs/harness.md, con aprobación humana"
 ---
 
-Convierte la traza de un bloque, cambio o semana en **propuestas** de refinamiento. No implementa, no revisa código y no cambia reglas sin aprobación.
+Convierte la traza de un bloque o cambio, o de los últimos 7 días con `--semana`, en **propuestas** de refinamiento. No implementa, no revisa código y no cambia reglas sin aprobación.
 
 Argumentos: `$ARGUMENTS`
 
 - `<cambio> [bloque]`: traza de un cambio o de un bloque concreto.
-- `--semana`: últimos 7 días.
+- `--semana`: barrido opcional de mantenimiento de los últimos 7 días; no sustituye el cierre de bloque o cambio.
 
 ## 1. Alcance
 
-- Si es `--semana`, usa `git log --since="7 days ago"` y revisa `MEMORY.md` § Pendiente.
+- La vía principal es el cierre de un bloque o de un cambio. `--semana` es un barrido de mantenimiento para cuando no hay cierres recientes.
+- Si es `--semana`, usa `git log --since="7 days ago"` y revisa `MEMORY.md` § Pendiente; si no hay traza, para.
 - Si es `<cambio> [bloque]`, lee solo `openspec/changes/<cambio>/tasks.md` (líneas de tarea y `## Revisiones`), no el cambio entero. Usa el rango de commits del bloque o del cambio; si está en un worktree, usa su ruta.
 - No leas código de producción salvo que la traza lo exija. El curador trabaja con evidencia, no con el diff completo.
 

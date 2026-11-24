@@ -1,7 +1,6 @@
 ---
 type: Proceso
 hint: alcance, bootstrap, comandos y módulo wiki
-stale_after: 2027-05-31
 ---
 
 # Especificación del template
@@ -48,7 +47,7 @@ Sustituye los placeholders de `AGENTS.md`, agentes y `revisar.md`, escribe
 | `/implementar` | Una tarea | Brief + `implementer`; gates y commit. |
 | `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
 | `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
-| `/curar` | Cierre de bloque, semana o cambio | Propone filas para `docs/harness.md`. |
+| `/curar` | Cierre de bloque o cambio; `--semana` opcional | Propone filas para `docs/harness.md`. |
 | `/openspec-review` | Cierre de cambio | Revisa coherencia de specs. |
 | `/opsx-verify`, `/opsx-sync`, `/opsx-archive` | Cierre | Verifica, sincroniza y archiva. |
 

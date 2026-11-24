@@ -1,7 +1,6 @@
 ---
 type: Proceso
 hint: bucles, registro de refinamientos y mantenimiento del harness
-stale_after: 2027-05-31
 ---
 
 # Cómo trabajamos: harness, bucles y refinamientos
@@ -56,7 +55,7 @@ Lo que este proyecto descubra y sea genérico se propone al template público:
 ## 6. Cómo se mantiene
 
 - Al cerrar un bloque, si hubo incidente o patrón.
-- Una vez por semana, leyendo paradas, deltas y causas.
 - Al cerrar un cambio, antes de archivar.
+- Opcionalmente una vez por semana, si no ha habido cierres recientes y hay traza acumulada.
 
-La cadencia recomendada es una revisión humana. No hay un cron que cure: el cron semanal solo valida la documentación.
+La cadencia principal es una revisión humana al cerrar bloque o cambio. No hay un cron que cure: la comprobación periódica solo valida la documentación.

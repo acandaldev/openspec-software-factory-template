@@ -100,7 +100,7 @@ node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs
 | `/implementar` | Una tarea | Brief + `implementer`; gates y commit en el worktree del bloque. |
 | `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
 | `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
-| `/curar` | Cierre de bloque, semana o cambio | Propone filas para `docs/harness.md`; no cambia reglas sin aprobación. |
+| `/curar` | Cierre de bloque o cambio; `--semana` opcional | Propone filas para `docs/harness.md`; no cambia reglas sin aprobación. |
 | `/openspec-review` | Cierre de cambio | Revisa coherencia entre artefactos. |
 | `/opsx-verify`, `/opsx-sync`, `/opsx-archive` | Cierre | Verifica, sincroniza y archiva. |
 
