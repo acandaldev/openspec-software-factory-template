@@ -24,6 +24,9 @@ La v0.1 es un template OpenCode-only para proyectos que ya usan OpenSpec. Incluy
 - `docs/harness.md` como registro de decisiones;
 - `MEMORY.md`, `opencode.jsonc` y `data/forbidden.json`.
 
+Los agentes ejecutan los gates en Bash (Git Bash en Windows o WSL); PowerShell
+no es un shell soportado.
+
 No incluye la web, los datos del proyecto de origen ni un segundo harness.
 
 ## 2. Bootstrap

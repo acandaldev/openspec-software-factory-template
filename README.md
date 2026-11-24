@@ -32,6 +32,7 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 
 - Node.js 22 o superior.
 - Git.
+- Bash (Git Bash en Windows o WSL). Los agentes ejecutan los gates en Bash; PowerShell no es un shell soportado.
 - OpenCode instalado y funcionando en el proyecto.
 - OpenSpec instalado. El template asume que el proyecto ya está inicializado; si no, ejecuta `openspec init` antes del primer cambio.
 - Los modelos que configures deben existir en OpenCode. El template no fija proveedor.

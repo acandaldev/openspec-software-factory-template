@@ -37,6 +37,13 @@ permissions:
   - action: shell
     resource: "rm -rf*"
     effect: deny
+  # Equivalente destructivo de PowerShell; el shell soportado es Bash.
+  - action: shell
+    resource: "Remove-Item *"
+    effect: deny
+  - action: shell
+    resource: "Remove-ItemProperty *"
+    effect: deny
 ---
 
 Eres el implementador de este repositorio. Ejecutas **únicamente la tarea (o lote `NORMAL`/`[FAST]`) indicada en el brief** de un cambio OpenSpec aprobado. No rediseñas el plan ni empiezas tareas fuera del brief.

@@ -61,7 +61,7 @@ jobs:
         run: node scripts/docs-sync.mjs --check
 
       - name: Tests
-        run: node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs tests/template-manifest.test.mjs
+        run: npm test
 
       - name: Secretos
         run: node scripts/check-secrets.mjs

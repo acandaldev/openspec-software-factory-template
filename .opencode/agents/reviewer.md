@@ -97,6 +97,132 @@ permissions:
   - action: shell
     resource: "perl -i*"
     effect: deny
+  # Escrituras de PowerShell: el shell soportado es Bash (Git Bash/WSL),
+  # pero se deniegan por si el comando llega desde otra shell.
+  - action: shell
+    resource: "Remove-Item *"
+    effect: deny
+  - action: shell
+    resource: "Move-Item *"
+    effect: deny
+  - action: shell
+    resource: "Copy-Item *"
+    effect: deny
+  - action: shell
+    resource: "Rename-Item *"
+    effect: deny
+  - action: shell
+    resource: "New-Item *"
+    effect: deny
+  - action: shell
+    resource: "Set-Content *"
+    effect: deny
+  - action: shell
+    resource: "Add-Content *"
+    effect: deny
+  - action: shell
+    resource: "Clear-Content *"
+    effect: deny
+  - action: shell
+    resource: "Out-File *"
+    effect: deny
+  - action: shell
+    resource: "Set-Item *"
+    effect: deny
+  - action: shell
+    resource: "Remove-ItemProperty *"
+    effect: deny
+  - action: shell
+    resource: "Set-ItemProperty *"
+    effect: deny
+  - action: shell
+    resource: "New-ItemProperty *"
+    effect: deny
+  - action: shell
+    resource: "Tee-Object *"
+    effect: deny
+  - action: shell
+    resource: "Start-Process *"
+    effect: deny
+  - action: shell
+    resource: "Invoke-Expression *"
+    effect: deny
+  # Alias y lanzadores de shell que también escriben.
+  - action: shell
+    resource: "del *"
+    effect: deny
+  - action: shell
+    resource: "erase *"
+    effect: deny
+  - action: shell
+    resource: "rmdir *"
+    effect: deny
+  - action: shell
+    resource: "rd *"
+    effect: deny
+  - action: shell
+    resource: "move *"
+    effect: deny
+  - action: shell
+    resource: "copy *"
+    effect: deny
+  - action: shell
+    resource: "ren *"
+    effect: deny
+  - action: shell
+    resource: "ni *"
+    effect: deny
+  - action: shell
+    resource: "sc *"
+    effect: deny
+  - action: shell
+    resource: "clc *"
+    effect: deny
+  - action: shell
+    resource: "ac *"
+    effect: deny
+  - action: shell
+    resource: "tee *"
+    effect: deny
+  - action: shell
+    resource: "start *"
+    effect: deny
+  - action: shell
+    resource: "saps *"
+    effect: deny
+  - action: shell
+    resource: "iex *"
+    effect: deny
+  - action: shell
+    resource: "pwsh *"
+    effect: deny
+  - action: shell
+    resource: "pwsh.exe *"
+    effect: deny
+  - action: shell
+    resource: "powershell *"
+    effect: deny
+  - action: shell
+    resource: "powershell.exe *"
+    effect: deny
+  - action: shell
+    resource: "cmd /c *"
+    effect: deny
+  - action: shell
+    resource: "cmd.exe /c *"
+    effect: deny
+  - action: shell
+    resource: "bash -c *"
+    effect: deny
+  - action: shell
+    resource: "bash.exe -c *"
+    effect: deny
+  - action: shell
+    resource: "sh -c *"
+    effect: deny
+  - action: shell
+    resource: "sh.exe -c *"
+    effect: deny
 ---
 
 Eres el revisor de implementación de este repositorio. No modificas el carril ni el árbol principal: escribes solo en la copia de revisión, y solo para ejecutar y revertir mutaciones. No revisas artefactos OpenSpec (para eso existe `openspec-reviewer`): revisas código, tests y evidencia contra un cambio ya implementado.
