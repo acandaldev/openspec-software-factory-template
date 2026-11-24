@@ -51,7 +51,7 @@ Una tarea se parte **antes de empezar** si cumple dos o más de: toca más de 3 
 - Un `CAMBIOS NECESARIOS` no crea tarea nueva: se reabre la tarea (`[ ]`), se arregla y se vuelve a marcar; la revisión del arreglo se registra en `## Revisiones` con el mismo ID y el sufijo `(delta)`. Una tarea solo se divide por tamaño, y antes de dividirla se pregunta al usuario.
 - Un carril es una rama con worktree en `paralelo/<cambio>-<bloque>` (ignorado por git). No se abre si su dominio de colisión está ocupado.
 - La PR se abre cuando la última tarea del bloque está `[x]` y revisada, **cuando el usuario lo pida**. Un bloque = un merge = una ventana de deploy.
-- El push y la espera del CI son del bloque o de la PR, no de cada tarea: la evidencia intra-bloque son los gates locales y el commit. Tras el push se espera el resultado y se corrige el rojo antes de seguir: no se deja para después ni se pregunta si hay que mirarlo.
+- El push es del bloque; el CI de código se espera al abrir la PR, no tras cada tarea: la evidencia intra-bloque son los gates locales y el commit. El run que exista se espera y se corrige el rojo antes de seguir: no se deja para después ni se pregunta si hay que mirarlo.
 - Urgencias fuera de bloque: `fix/<tema>` con PR. Tras el merge: borrar la rama y `git switch {{mainBranch}} && git pull`.
 
 ## Triaje
