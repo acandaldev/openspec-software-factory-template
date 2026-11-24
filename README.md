@@ -20,7 +20,7 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 ## Qué no incluye
 
 - Un segundo harness (otros agentes o CLIs).
-- Wiki implementada; el diseño queda en `docs/template-spec.md`.
+- Wiki implementada; queda fuera de la v0.1.
 - Panel de métricas: la traza vive en git y en `tasks.md`.
 - Código, datos o infraestructura de ningún proyecto.
 
@@ -140,7 +140,6 @@ El template no se sincroniza automáticamente con los proyectos que lo usan. Cad
 
 ## Documentación
 
-- `docs/template-spec.md`: alcance, bootstrap, comandos, módulos opcionales y criterios de aceptación.
 - `docs/harness.md`: por qué el harness es como es y registro de refinamientos.
 - `docs/codegraph.md`: módulo opcional de exploración de código.
 - `docs/index.md`: mapa generado de la documentación.

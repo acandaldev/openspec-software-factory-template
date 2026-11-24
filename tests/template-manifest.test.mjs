@@ -30,14 +30,12 @@ test("template.json solo referencia comandos y agentes que existen", async () =>
   }
 });
 
-test("la tabla de comandos vive solo en README.md", async () => {
+test("la tabla de comandos vive en README.md", async () => {
   const readme = await readFile(path.join(ROOT, "README.md"), "utf8");
-  const spec = await readFile(path.join(ROOT, "docs", "template-spec.md"), "utf8");
 
   for (const command of manifest.commands) {
     assert.match(readme, new RegExp(`\\| \`/${command}\` \\|`), `README no lista /${command}`);
   }
-  assert.ok(!spec.includes("| Comando |"), "template-spec.md no debe duplicar la tabla de comandos");
 });
 
 test("opencode.jsonc deja codegraph desactivado por defecto", async () => {
