@@ -58,6 +58,7 @@ El mensaje debe indicar: cambio, ID de tarea (por ejemplo `2.4`, o rango si son 
 - Si el cambio es visual, verifica con la herramienta de navegador disponible. Si no puedes, dilo.
 - Ejecuta los gates de `AGENTS.md` § Comandos que apliquen al lado tocado. No inventes comandos: si no están definidos, PARA y pide que se añadan al contrato.
 - Orden de cierre: implementa + tests → ejecuta las mutaciones (2 en `[HARD]`, 1 en `NORMAL`/`[FAST]`, siempre sobre el filtro) y revierte cada una con edición inversa comprobando `git status --short` → corre la pasada verde post-reversión (1 pasada en normal; 2 consecutivas en `[HARD]` o concurrencia) + formato + `openspec validate`.
+- **El brief no endurece este protocolo**: si el brief pide más mutaciones o más pasadas verdes que las que te tocan por nivel, aplica el protocolo y anótalo como desviación en la respuesta final. Si de verdad hace falta más evidencia, el coordinador debe subir el nivel de la tarea, no la cifra en el brief.
 - En cuanto esa pasada post-reversión esté en verde, **marca `- [x]` y escribe la traza inmediatamente antes de commitear**:
   `— [Agente: <Entorno>/<Modelo (variante)> | Coste: <$X.XXX o ~Nk tok>] — Resultado: <resumen en 1 frase de ≤160 caracteres>.`
   Incluye siempre la variante del modelo (`low`, `high`, `xhigh`…).
