@@ -1,0 +1,32 @@
+# Dependencias y artefactos
+node_modules/
+dist/
+coverage/
+*.log
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.secrets*
+data/forbidden.local.json
+
+# Copias de revisión y worktrees
+paralelo/
+.review/
+*.review/
+
+# Índices locales
+.codegraph/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+.obsidian/

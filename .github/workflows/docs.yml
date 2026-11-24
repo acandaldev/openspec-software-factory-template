@@ -1,0 +1,67 @@
+name: Docs y harness
+
+on:
+  push:
+    paths:
+      - "AGENTS.md"
+      - "MEMORY.md"
+      - "README.md"
+      - "bootstrap.mjs"
+      - "harness.config.example.json"
+      - "opencode.jsonc"
+      - "data/**"
+      - "docs/**"
+      - "openspec/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".opencode/**"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "MEMORY.md"
+      - "README.md"
+      - "bootstrap.mjs"
+      - "harness.config.example.json"
+      - "opencode.jsonc"
+      - "data/**"
+      - "docs/**"
+      - "openspec/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".opencode/**"
+      - ".github/workflows/docs.yml"
+  # Lunes 05:00 UTC. Sin esto, un `stale_after` vencido solo se detecta
+  # cuando alguien toca docs/.
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Documentación, tests y secretos
+    runs-on: ubuntu-latest
+    concurrency:
+      group: docs-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      # Falla si un .md de docs/ no tiene "type", si un "stale_after" venció,
+      # si docs/index.md no coincide con lo generado o si la tabla de avance de
+      # MEMORY.md no cuadra con los tasks.md.
+      - name: Documentación y memoria
+        run: node scripts/docs-sync.mjs --check
+
+      - name: Tests
+        run: node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs
+
+      - name: Secretos
+        run: node scripts/check-secrets.mjs

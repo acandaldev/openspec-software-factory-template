@@ -1,0 +1,37 @@
+{
+  "project": {
+    "slug": "{{projectSlug}}",
+    "displayName": "{{projectName}}"
+  },
+  "stack": {
+    "description": "{{stackDescription}}",
+    "sourceDirs": "{{sourceDirs}}",
+    "buildCommand": "{{buildCommand}}",
+    "testCommand": "{{testCommand}}",
+    "formatCommand": "{{formatCommand}}"
+  },
+  "models": {
+    "implementHard": "{{modelImplementHard}}",
+    "implementNormal": "{{modelImplementNormal}}",
+    "implementFast": "{{modelImplementFast}}",
+    "reviewHard": "{{modelReviewHard}}",
+    "reviewNormal": "{{modelReviewNormal}}",
+    "reviewFast": "{{modelReviewFast}}"
+  },
+  "reviewCopyDir": "{{reviewCopyDir}}",
+  "docs": {
+    "dir": "docs",
+    "indexFile": "docs/index.md",
+    "memoryFile": "MEMORY.md",
+    "agentsFile": "AGENTS.md",
+    "changesDir": "openspec/changes",
+    "mainBranch": "{{mainBranch}}",
+    "excludedDirs": {},
+    "limits": {
+      "maxResultChars": 240,
+      "memoryMaxLines": 85,
+      "agentsMaxLines": 125
+    },
+    "mutationMarkerPattern": "\\b(Mutaci[oó]n temporal|TODO:\\s*revertir)\\b"
+  }
+}

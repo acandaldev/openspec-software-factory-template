@@ -1,0 +1,18 @@
+{
+  "name": "openspec-software-factory-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Template OpenCode-only del método OpenSpec + subagentes + gates + traza + curador",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "bootstrap": "node bootstrap.mjs",
+    "sync": "node scripts/docs-sync.mjs",
+    "check": "node scripts/docs-sync.mjs --check && node scripts/check-secrets.mjs",
+    "test": "node --test scripts/docs-sync.test.mjs tests/bootstrap.test.mjs",
+    "plan": "node scripts/docs-sync.mjs --plan"
+  },
+  "license": "MIT"
+}
