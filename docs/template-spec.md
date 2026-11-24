@@ -33,10 +33,11 @@ La tabla de comandos, cuándo se usan y qué hacen vive en `README.md` § Comand
 Este spec no la duplica: si cambia un comando, se actualiza el README y
 `template.json`; este documento solo cambia si varía el alcance.
 
-## 4. Módulo wiki (opcional)
+## 4. Diseño de wiki (fuera de la v0.1)
 
-La wiki no es una pieza del método. Se activa solo si el proyecto acumula fuentes
-externas y necesita trazabilidad:
+La wiki no es una pieza del método ni está implementada en la v0.1. Este
+apartado guarda solo el diseño, para cuando un proyecto acumule fuentes externas
+y necesite trazabilidad:
 
 ```text
 raw/       fuentes inmutables
@@ -47,8 +48,7 @@ log.md     historial append-only
 
 El lint determinista (enlaces, frontmatter, huérfanas, fuentes inexistentes) es
 lo único que puede bloquear CI. Las contradicciones semánticas las revisa una
-persona. En la v0.1 la wiki queda fuera; se especifica aquí para no olvidar el
-diseño.
+persona.
 
 ## 5. Módulo CodeGraph (opcional)
 
