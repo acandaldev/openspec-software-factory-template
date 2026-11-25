@@ -31,16 +31,16 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 
 ## Requisitos
 
-Antes de empezar, revisa qué hay que instalar y qué se da por hecho. El harness funciona en Windows (Git Bash o WSL) y Linux; PowerShell no está soportado:
+Antes de empezar, revisa qué hay que instalar y qué se da por hecho. El harness funciona en Windows (Git Bash o WSL) y Linux; PowerShell no está soportado para los gates:
 
-| Necesitas | Qué hacer | Para qué |
+| Necesitas | Cómo | Para qué |
 |---|---|---|
-| [OpenCode](https://opencode.ai) | Instalar | Harness de la v0.1: subagentes, permisos y comandos. |
-| [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Instalar | Especificaciones y tareas; `openspec init` si el proyecto no lo tiene. |
-| [Node.js 22+](https://nodejs.org) | Instalar | Solo el harness y el CI: bootstrap, `docs-sync`, plan y tests. El producto no lo necesita. |
-| Git y CI | Tener ya | Ramas, commits y PR; GitHub Actions en la implementación de referencia. |
-| Bash (Git Bash o WSL) | Tener ya | Los agentes ejecutan los gates ahí; PowerShell no está soportado. |
-| Modelos de OpenCode | Configurar | Los seis IDs del bootstrap deben existir en tu instalación. |
+| **OpenCode** | Instalar: [opencode.ai/docs](https://opencode.ai/docs/) · Windows: binario standalone | Harness de la v0.1: subagentes, permisos y comandos. |
+| **OpenSpec** | Instalar: [openspec.dev/docs/installation](https://openspec.dev/docs/installation) · o `npm i -g @fission-ai/openspec@latest` (Node 22.20+) | Especificaciones y tareas; `openspec init` si el proyecto no lo tiene. |
+| **Node.js 22+** | Instalar: [nodejs.org](https://nodejs.org/) (LTS 22) | Solo el harness y el CI: bootstrap, `docs-sync`, `worktree-deps`, plan y tests. El producto no lo necesita. |
+| **Git y CI** | Tener ya: [git-scm.com](https://git-scm.com/downloads) y tu CI | Ramas, commits y PR; GitHub Actions en la implementación de referencia. |
+| **Bash** | Tener ya: Git Bash (incluido en Git for Windows) o `wsl --install` | Los agentes ejecutan los gates ahí; PowerShell no está soportado. |
+| **Modelos de OpenCode** | Configurar: `/connect` en OpenCode · [providers](https://opencode.ai/docs/providers) | Los seis IDs del bootstrap deben existir en tu instalación. |
 
 ## Puesta en marcha
 
