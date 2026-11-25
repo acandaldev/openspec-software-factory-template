@@ -10,10 +10,11 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 - Tres subagentes: `implementer`, `reviewer` y `openspec-reviewer`.
 - Comandos propios: `/implementar`, `/revisar`, `/coordinar`, `/curar` y `/openspec-review`.
 - `scripts/docs-sync.mjs`: genera `docs/index.md`, compacta `tasks.md`, archiva el detalle en `tasks-history.md` y corrige el avance de `MEMORY.md`.
+- `scripts/worktree-deps.mjs`: enlaza `worktree.sharedDirs` cuando el lockfile coincide por SHA-256 y limpia enlaces y `.codegraph/` al cerrar el worktree.
 - `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
 - `bootstrap.mjs`: sustituye placeholders, escribe `harness.config.json` y valida el resultado.
 - `template.json`: manifiesto legible por máquina (versión, harness, repositorio, sitio, comandos y agentes). El sitio lo copia y comprueba que no diverge.
-- Tests de `docs-sync`, de `bootstrap`, del manifiesto y de permisos de agentes.
+- Tests de `docs-sync`, `worktree-deps`, `bootstrap`, del manifiesto y de permisos de agentes.
 - Workflow de CI para documentación, tests y secretos.
 - `docs/harness.md` como registro de refinamientos y `MEMORY.md` como memoria operativa.
 
@@ -30,12 +31,16 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 
 ## Requisitos
 
-- Node.js 22 o superior.
-- Git.
-- Bash (Git Bash en Windows o WSL). Los agentes ejecutan los gates en Bash; PowerShell no es un shell soportado.
-- OpenCode instalado y funcionando en el proyecto.
-- OpenSpec instalado. El template asume que el proyecto ya está inicializado; si no, ejecuta `openspec init` antes del primer cambio.
-- Los modelos que configures deben existir en OpenCode. El template no fija proveedor.
+Antes de empezar, revisa qué hay que instalar y qué se da por hecho. El harness funciona en Windows (Git Bash o WSL) y Linux; PowerShell no está soportado:
+
+| Necesitas | Qué hacer | Para qué |
+|---|---|---|
+| [OpenCode](https://opencode.ai) | Instalar | Harness de la v0.1: subagentes, permisos y comandos. |
+| [OpenSpec](https://github.com/Fission-AI/OpenSpec) | Instalar | Especificaciones y tareas; `openspec init` si el proyecto no lo tiene. |
+| [Node.js 22+](https://nodejs.org) | Instalar | Solo el harness y el CI: bootstrap, `docs-sync`, plan y tests. El producto no lo necesita. |
+| Git y CI | Tener ya | Ramas, commits y PR; GitHub Actions en la implementación de referencia. |
+| Bash (Git Bash o WSL) | Tener ya | Los agentes ejecutan los gates ahí; PowerShell no está soportado. |
+| Modelos de OpenCode | Configurar | Los seis IDs del bootstrap deben existir en tu instalación. |
 
 ## Puesta en marcha
 
@@ -93,6 +98,7 @@ npm test
 | `.opencode/agents/` | Subagentes de implementación y revisión. |
 | `.opencode/commands/` | Comandos del flujo. |
 | `scripts/docs-sync.mjs` | Índices, memoria, compactación de tareas y plan ejecutable. |
+| `scripts/worktree-deps.mjs` | Enlace seguro de directorios compartidos en worktrees y limpieza al cerrar. |
 | `scripts/check-secrets.mjs` | Gate de secretos y términos prohibidos. |
 | `docs/` | Operación y decisiones. Empieza por `docs/index.md`. |
 | `docs/codegraph.md` | Módulo opcional de exploración de código. |

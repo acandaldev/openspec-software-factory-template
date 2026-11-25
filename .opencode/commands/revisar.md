@@ -27,6 +27,7 @@ Tabla única: `AGENTS.md` § Comandos («Modelo por nivel»). El nivel se toma d
    - **Diff**: `git diff --stat main..feat/<cambio>-<bloque>` (solo el stat).
    - **Desviaciones**: las declaradas por `implementer`; si no hay, «ninguna».
    - **Entorno y Modelo**: el modelo explícito de la tabla, para que lo incluya junto con el coste/tokens en la cabecera del informe (`Agente: ... | Coste: ...`).
+   - **No repitas en el brief** los criterios de la tarea ni el contenido de la spec: `reviewer` los lee de `tasks.md` y de `specs/` en la copia. El brief no se ablanda ni crece entre rondas: mismos criterios, más los hallazgos.
 5. **Verifica el modelo del informe antes de aceptarlo**:
    - La línea `Agente: ...` del informe debe coincidir con el modelo que exige la matriz para el nivel del alcance. Si no coincide, la revisión **no es válida**: relánzala con el modelo correcto y no registres la fila.
 6. **Salida y registro automático**:

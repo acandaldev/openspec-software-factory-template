@@ -75,7 +75,7 @@ Cuando aparece algo que no estaba en el plan —hallazgo de revisión, alerta, b
 - Pregunta antes: cambios de esquema, DNS, archivos nuevos o cualquier cambio en los permisos o el contrato de los agentes (`.opencode/agents/`).
 - Nunca: tocar producción sin rollback, editar migraciones ya aplicadas.
 - Nunca: implementar o revisar una tarea en la sesión principal; el cauce obligatorio es `/implementar` y `/revisar`. Cualquier otro subagente requiere petición explícita del usuario en ese mismo turno. Un «para» detiene toda ejecución hasta nueva autorización.
-- Subagentes: nunca dos sesiones simultáneas sobre la misma tarea o rama; sin brief cerrado no se lanza; un subagente no puede aprobar una confirmación de permiso.
+- Subagentes: nunca dos sesiones simultáneas sobre la misma tarea o rama; sin brief cerrado no se lanza; si el `implementer` de la tarea sigue vivo en la sesión actual, el delta se le envía por continuación para reutilizar su contexto en caché en vez de abrir otro desde cero; un subagente no puede aprobar una confirmación de permiso.
 - No guardes secretos.
 
 ## Memoria y contexto
