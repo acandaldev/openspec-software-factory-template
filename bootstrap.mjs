@@ -113,7 +113,7 @@ async function main() {
       flags.description ??
       "Proyecto gestionado con OpenSpec, subagentes, gates, traza y curador.",
     stack: flags.stack ?? "",
-    sourceDirs: flags["source-dirs"] ?? "src/",
+    sourceDirs: flags["source-dirs"] ?? "",
     build: flags.build ?? "",
     test: flags.test ?? "",
     format: flags.format ?? "",
@@ -130,6 +130,7 @@ async function main() {
   const required = [
     ["name", "Nombre del proyecto"],
     ["stack", "Stack del proyecto"],
+    ["sourceDirs", "Directorios de código"],
     ["build", "Comando de build"],
     ["test", "Comando de tests"],
     ["format", "Comando de formato"],
@@ -165,7 +166,6 @@ async function main() {
       const optional = [
         ["slug", `Slug [${values.slug}]`],
         ["description", `Descripción [${values.description}]`],
-        ["sourceDirs", `Directorios de código [${values.sourceDirs}]`],
         ["reviewCopyDir", `Directorio de copias de revisión [${values.reviewCopyDir}]`],
         ["mainBranch", `Rama principal [${values.mainBranch}]`],
       ];

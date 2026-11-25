@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { cp, mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { cp, mkdtemp, readdir, readFile, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -98,8 +98,13 @@ test("bootstrap sustituye placeholders, escribe configuración y valida", async 
     assert.ok(agents.includes("provider/model-hard#high"));
     assert.ok(agents.includes("provider/model-review-normal"));
 
-    const reviewer = await readFile(path.join(dir, ".opencode/agents/reviewer.md"), "utf8");
-    assert.ok(!reviewer.includes("{{"), "reviewer.md conserva placeholders");
+    const agentsDir = path.join(dir, ".opencode/agents");
+    for (const file of await readdir(agentsDir)) {
+      const text = await readFile(path.join(agentsDir, file), "utf8");
+      assert.ok(!text.includes("{{"), `${file} conserva placeholders`);
+    }
+
+    const reviewer = await readFile(path.join(agentsDir, "reviewer.md"), "utf8");
     assert.ok(reviewer.includes(".review"));
 
     const revisar = await readFile(path.join(dir, ".opencode/commands/revisar.md"), "utf8");

@@ -40,7 +40,8 @@ La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secr
 ## Puesta en marcha
 
 1. Crea el repositorio del proyecto desde este template (botón **Use this template** de GitHub) o copia el contenido en un proyecto existente.
-2. Ejecuta el bootstrap:
+2. Inicializa OpenSpec si el proyecto aún no lo tiene (`openspec init`). Crea `openspec/config.yaml`; sin él, `/opsx-*` y `openspec validate` no funcionan.
+3. Ejecuta el bootstrap:
 
 ```bash
 node bootstrap.mjs
@@ -71,8 +72,8 @@ node bootstrap.mjs --yes \
 
 `node bootstrap.mjs --help` muestra todas las opciones. Sustituye los valores de ejemplo por los comandos reales de tu proyecto. Si `harness.config.json` ya existe, el bootstrap se niega a sobrescribirlo salvo que uses `--force`.
 
-3. Revisa `AGENTS.md`, `.opencode/agents/*.md` y `.opencode/commands/revisar.md`: los placeholders deben haber desaparecido.
-4. Comprueba los gates:
+4. Revisa `AGENTS.md`, `.opencode/agents/*.md` y `.opencode/commands/revisar.md`: los placeholders deben haber desaparecido.
+5. Comprueba los gates:
 
 ```bash
 node scripts/docs-sync.mjs --check
