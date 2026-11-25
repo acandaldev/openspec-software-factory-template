@@ -12,7 +12,7 @@ Tabla única: `AGENTS.md` § Comandos («Modelo por nivel»). Aplica la fila del
 
 ## Rama y PR
 
-Sigue la política de `AGENTS.md` (§ Ramas y PR). Antes de invocar `implementer`, si la tarea cambia código, prepara el worktree del bloque desde `main` actualizado: `git worktree add paralelo/<cambio>-<bloque> -b feat/<cambio>-<bloque>` la primera vez, y reutilízalo en las tareas siguientes. Comprueba que está limpio (`git status`) antes de cada invocación.
+Sigue la política de `AGENTS.md` (§ Ramas y PR). Antes de invocar `implementer`, si la tarea cambia código, prepara el worktree del bloque desde `main` actualizado: `git worktree add paralelo/<cambio>-<bloque> -b feat/<cambio>-<bloque>` y `node scripts/worktree-deps.mjs link paralelo/<cambio>-<bloque>` la primera vez (desenlaza con `unlink` antes de `git worktree remove` al cerrar el bloque), y reutilízalo en las tareas siguientes. Comprueba que está limpio (`git status`) antes de cada invocación.
 
 ## Reglas para esta sesión principal (coordinador)
 

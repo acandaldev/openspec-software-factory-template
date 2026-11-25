@@ -13,7 +13,7 @@ instala con `npm install` del proyecto y ningún gate ni test lo necesita.
 
 - El proyecto es grande y localizar símbolos con `grep` se vuelve caro.
 - Trabajas en un worktree estable y puedes pagar un índice local.
-- No lo actives para cambios pequeños, revisiones `delta` de ≤3 ficheros o
+- No lo actives para cambios pequeños, copias de revisión de ≤8 ficheros o
   lectura de un símbolo concreto: `grep -n` y `read` son más baratos.
 
 ## Instalación
@@ -47,8 +47,9 @@ codegraph init . --yes   # ~20-30 s y ~30-40 MB
 codegraph status .       # comprobar que existe y está al día
 ```
 
-`.codegraph/` está ignorado por git: el índice no se versiona. Al borrar el
-worktree se va con él. Para eliminarlo a mano: `codegraph uninit .`.
+`.codegraph/` está ignorado por git: el índice no se versiona. Antes de borrar un
+worktree o copia de revisión, `node scripts/worktree-deps.mjs unlink <ruta>` ejecuta
+`codegraph uninit --force` para parar el daemon y soltar bloqueos de ficheros en Windows.
 
 ## Usar
 

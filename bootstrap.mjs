@@ -261,6 +261,9 @@ async function main() {
       testCommand: values.test,
       formatCommand: values.format,
     },
+    worktree: {
+      sharedDirs: [],
+    },
     models: {
       implementHard: values.implementHard,
       implementNormal: values.implementNormal,
