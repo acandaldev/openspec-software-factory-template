@@ -4,11 +4,22 @@ Template ejecutable del método **OpenSpec + subagentes + gates + traza + curado
 
 La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secretos de ningún proyecto concreto: cada proyecto ejecuta `bootstrap.mjs` y escribe su propio contrato.
 
+## Método y adaptador
+
+El método es portable: el contrato (`AGENTS.md`), las especificaciones (`openspec/`), los gates, la traza, la documentación y el curador viven en ficheros y git.
+
+La v0.1 usa **OpenCode como implementación de referencia**. `.opencode/agents/`, `.opencode/commands/`, `opencode.jsonc`, los permisos y los seis modelos son su adaptador. Cambiar de harness exige traducir esa capa, no reescribir el método.
+
+| Capa | Dónde | ¿Portable? |
+|---|---|---|
+| Método | `AGENTS.md`, `openspec/`, `docs/`, `MEMORY.md`, `scripts/`, git y CI | Sí |
+| Adaptador OpenCode v0.1 | `.opencode/`, `opencode.jsonc`, modelos, permisos y comandos | No; se traduce |
+
 ## Qué incluye
 
 - `AGENTS.md` con placeholders: contrato de proyecto, comandos, ramas, triaje y memoria.
-- Tres subagentes: `implementer`, `reviewer` y `openspec-reviewer`.
-- Comandos propios: `/implementar`, `/revisar`, `/coordinar`, `/curar` y `/openspec-review`.
+- Tres subagentes de OpenCode: `implementer`, `reviewer` y `openspec-reviewer`.
+- Comandos del adaptador OpenCode: `/implementar`, `/revisar`, `/coordinar`, `/curar` y `/openspec-review`.
 - `scripts/docs-sync.mjs`: genera `docs/index.md`, compacta `tasks.md`, archiva el detalle en `tasks-history.md` y corrige el avance de `MEMORY.md`.
 - `scripts/worktree-deps.mjs`: enlaza `worktree.sharedDirs` cuando el lockfile coincide por SHA-256 y limpia enlaces y `.codegraph/` al cerrar el worktree.
 - `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
@@ -86,7 +97,7 @@ node scripts/check-secrets.mjs
 npm test
 ```
 
-5. Crea el primer cambio con `/opsx-propose <cambio>`.
+6. Crea el primer cambio con `/opsx-propose <cambio>`.
 
 ## Estructura
 
@@ -94,9 +105,9 @@ npm test
 |---|---|
 | `AGENTS.md` | Contrato del proyecto: comandos, niveles, ramas, triaje y memoria. |
 | `harness.config.json` | Configuración generada por `bootstrap.mjs`; el ejemplo versionado es `harness.config.example.json`. |
-| `opencode.jsonc` | Configuración de OpenCode; `codegraph` queda desactivado por defecto. |
-| `.opencode/agents/` | Subagentes de implementación y revisión. |
-| `.opencode/commands/` | Comandos del flujo. |
+| `opencode.jsonc` | Configuración del adaptador OpenCode; `codegraph` queda desactivado por defecto. |
+| `.opencode/agents/` | Subagentes del adaptador OpenCode. |
+| `.opencode/commands/` | Comandos del adaptador OpenCode. |
 | `scripts/docs-sync.mjs` | Índices, memoria, compactación de tareas y plan ejecutable. |
 | `scripts/worktree-deps.mjs` | Enlace seguro de directorios compartidos en worktrees y limpieza al cerrar. |
 | `scripts/check-secrets.mjs` | Gate de secretos y términos prohibidos. |
