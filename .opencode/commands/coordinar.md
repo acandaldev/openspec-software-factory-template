@@ -22,5 +22,5 @@ Argumentos: `$ARGUMENTS` (`<cambio> <bloque>`; ejemplo: `notas 1`).
    - CI en rojo que el reintento no arregla.
    - Fin del bloque.
    - Umbral de contexto: checkpoint en `MEMORY.md` al 75–80 %, parar al 85–87 %.
-7. **Al cerrar el bloque**: revisión pendiente del bloque para NORMAL/`[FAST]`, suite completa, `node scripts/docs-sync.mjs`, push, pregunta si abrir el PR y, si se abre, espera su CI. No edites `MEMORY.md` a mano; las cifras las ajusta `docs-sync`.
+7. **Al cerrar el bloque**: revisión pendiente del bloque para NORMAL/`[FAST]`, suite completa, `node scripts/docs-sync.mjs`, push, pregunta si abrir el PR y, si se abre, espera su CI. **No lances deploy por bloque**: los merges no despliegan. Al cerrar el carril, si el proyecto tiene deploy, lánzalo y espera. No edites `MEMORY.md` a mano; las cifras las ajusta `docs-sync`.
 8. **Salida**: una línea por tarea (id, nivel, modelo, resultado, coste) y, al final, qué tareas quedan pendientes del bloque y por qué se paró.

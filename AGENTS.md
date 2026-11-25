@@ -44,14 +44,14 @@ Una tarea se parte **antes de empezar** si cumple dos o más de: toca más de 3 
 
 ## Ramas y PR
 
-- `{{mainBranch}}` es la rama desplegable: recibe merges de PR. La excepción es documentación y harness (`docs/`, `openspec/`, `.opencode/`, `AGENTS.md`).
+- `{{mainBranch}}` es la rama de integración: recibe merges de PR; el proyecto define cómo se despliega. La excepción es documentación y harness (`docs/`, `openspec/`, `.opencode/`, `AGENTS.md`).
 - Un bloque es una fase entregable y su PR es el merge. Una rama por bloque (`## N.` de `tasks.md`): `feat/<cambio>-<bloque>`. Sus tareas son **commits dentro de esa rama**, no ramas aparte.
 - Una ejecución = un commit. El `implementer` commitea cada tarea en el worktree del bloque cuando los gates post-reversión están en verde y **no empuja**; el padre empuja la rama al cerrar el bloque y espera el CI. El `reviewer` revisa `main..<rama>`, nunca un árbol sin commitear: antes de su brief, `git status` debe estar limpio.
 - El commit de tarea lleva el brief en trailers al final del mensaje, copiados literales: `Brief-Cambio`, `Brief-Tareas`, `Brief-Nivel`, `Brief-Modelo`, `Brief-Aceptacion` y, si aplica, `Brief-Ficheros` y `Brief-Ronda`. El commit `chore: registra revisión` lleva a su vez `Review-Veredicto`, `Review-Modelo`, `Review-Ronda` y, en `CAMBIOS NECESARIOS`, `Review-Causa`. La PR se mergea con merge commit, **nunca squash**, o los trailers se pierden.
 - Revisión: `[HARD]` por tarea; NORMAL y `[FAST]` por bloque, antes de la PR. Excepción: el primer lote de un carril se revisa antes de seguir.
 - Un `CAMBIOS NECESARIOS` no crea tarea nueva: se reabre la tarea (`[ ]`), se arregla y se vuelve a marcar; la revisión del arreglo se registra en `## Revisiones` con el mismo ID y el sufijo `(delta)`. Una tarea solo se divide por tamaño, y antes de dividirla se pregunta al usuario.
 - Un carril es una rama con worktree en `paralelo/<cambio>-<bloque>` (ignorado por git), preparado con `node scripts/worktree-deps.mjs link paralelo/<cambio>-<bloque>` (y limpiado con `unlink` antes de `git worktree remove`). No se abre si su dominio de colisión está ocupado.
-- La PR se abre cuando la última tarea del bloque está `[x]` y revisada, **cuando el usuario lo pida**. Un bloque = un merge = una ventana de deploy.
+- La PR se abre cuando la última tarea del bloque está `[x]` y revisada, **cuando el usuario lo pida**. Un bloque = un merge; un carril = una ventana de deploy. Los merges no despliegan: el deploy se decide al cerrar el carril con el mecanismo del proyecto.
 - El push es del bloque; el CI de código se espera al abrir la PR, no tras cada tarea: la evidencia intra-bloque son los gates locales y el commit. El run que exista se espera y se corrige el rojo antes de seguir: no se deja para después ni se pregunta si hay que mirarlo.
 - Urgencias fuera de bloque: `fix/<tema>` con PR. Tras el merge: borrar la rama y `git switch {{mainBranch}} && git pull`.
 

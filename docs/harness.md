@@ -13,7 +13,7 @@ Este documento explica **por qué** el harness es como es. `AGENTS.md` contiene 
 |---|---|---|---|
 | Proyecto | Meses | `MEMORY.md` y este registro | ¿Dónde estamos y qué viene después? |
 | Cambio | Semanas | `openspec/changes/<cambio>/` | ¿Qué debe ser verdad y cómo lo demostramos? |
-| Bloque | Días | Rama, PR y despliegue | ¿Qué se puede desplegar junto sin romper nada? |
+| Bloque | Días | Rama y PR | ¿Qué se puede integrar junto sin romper nada? |
 | Tarea | Horas | Brief, gates y commit | ¿Qué hago ahora y cómo sé que está bien? |
 
 Cada nivel contiene al siguiente y no se salta ninguna puerta.
@@ -30,6 +30,7 @@ Solo entran decisiones que cambiaron el comportamiento del sistema. Un ajuste de
 | 25-nov | Incidente | Reinstalar directorios pesados (`node_modules`) en cada worktree/copia de revisión añadía minutos por tarea, indexar `codegraph` en copias efímeras pequeñas no se amortizaba y su daemon bloqueaba `git worktree remove` en Windows | `worktree.sharedDirs` en `harness.config.json`, `scripts/worktree-deps.mjs` (`link`/`unlink` verificando SHA-256 del lockfile y `codegraph uninit --force`) e indexado de copias solo con >8 ficheros | `harness.config.example.json`, `bootstrap.mjs`, `scripts/worktree-deps.*`, `implementar`, `revisar`, `docs/codegraph.md` | `5eb19f7` |
 | 25-nov | Incidente | Se esperaba el CI con `sleep` de 5–8 min; en una sesión se perdieron ~35 min en esperas fijas | Esperar con el comando bloqueante del CI (`gh run watch <id> --exit-status` en GitHub Actions); prohibido `sleep` o sondeo en bucle cuando el comando puede esperar | `AGENTS.md` | `b49e89d` |
 | 25-nov | Propio | La revisión repetía gates y mutaba alcances sin lógica de producción (docs, tests, verificación) | El reviewer ejecuta los gates mínimos sin duplicar el build y no muta si no hay lógica de producción; la suite completa sigue siendo una por bloque | `reviewer`, `implementer` | `b49e89d` |
+| 25-nov | Propio | Cada bloque se trataba como ventana de deploy; los merges encadenaban despliegues y CI duplicado | El deploy es del carril: los bloques se mergean sin desplegar; el proyecto define su mecanismo y se lanza al cerrar el carril | `AGENTS.md`, `coordinar` | este commit |
 
 ## 3. Métricas
 
