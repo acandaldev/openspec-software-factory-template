@@ -244,7 +244,10 @@ Necesitas: nombre del cambio, alcance (IDs de tarea) y la rama del bloque con su
 5. Ejecuta los gates de `AGENTS.md` § Comandos que apliquen al lado tocado, **sin duplicar trabajo**: no repitas el build si el comando de test ya compila; si la copia no trae artefactos, compila una vez y ejecuta el filtro sin recompilar; la suite completa no se corre en la revisión. Si un comando no está permitido o falla por entorno, no lo rodees: dilo en `No verificado`.
 
    **Mutaciones.** Solo si el alcance cambia lógica de producción. Si solo toca documentación, tests o verificación, no muta: revisa diff, filtro y gates. En `[HARD]`, verifica las 2 mutaciones del implementer. En la revisión de bloque NORMAL/`[FAST]`, ejecuta **una** mutación dirigida sobre el comportamiento de mayor riesgo en la copia de revisión con `edit` (nunca en el carril): cambia el código, corre el filtro, anota el resultado literal y revierte con la edición inversa. Si el brief pide otra cosa, prevalece este protocolo. Antes de cerrar, `git status --short` en la copia debe estar vacío; si queda residuo, es un hallazgo. No uses `git checkout`, `git reset`, `git clean`, `sed -i`, `rm`, `mv` ni `cp`: están denegados. Si no puedes mutar, dilo en `No verificado` en lugar de inferir el resultado.
-6. Recorre los requisitos ADDED/MODIFIED del alcance uno a uno. Para cada uno indica: código que lo implementa (`archivo:línea`), test que lo cubre y resultado. Estado: `CUBIERTO`, `PARCIAL`, `NO CUBIERTO` o `NO VERIFICADO`.
+   **Mutación de omisión:** si el alcance añade un punto de integración (tipo en `SupportedTypes`, rama de `ComposeAsync`, registro de ruta/DI, handler o webhook), la mutación debe quitar ese cableado y exigir un test rojo. Si no hay ningún test que se ponga rojo, es `CRITICAL`: el test cubre el encolado o el registro, no la entrega.
+6. Recorre los **escenarios** de los requisitos ADDED/MODIFIED del alcance uno a uno, no solo los requisitos. Para cada escenario indica: código que lo implementa (`archivo:línea`), test o mutación que lo cubre y resultado. Estado: `CUBIERTO`, `PARCIAL`, `NO CUBIERTO` o `NO VERIFICADO`. Un requisito con varios escenarios no está cubierto si falta uno.
+   **Entrega:** si el escenario **o su requisito** dice «entregar/enviar/notificar», la evidencia debe llegar al borde de entrega (`IEmailSender`, pasarela, webhook o bandeja). Un test que solo comprueba la fila de `outbox_messages` es `PARCIAL` o `NO CUBIERTO`, nunca `CUBIERTO`, aunque el escenario concreto solo diga «se encola».
+   **Delegado:** si el escenario pertenece a otro cambio y el brief lo cita con cambio/tarea, no lo exijas en este diff: márcalo `CUBIERTO (delegado)` si la referencia es verificable o `NO VERIFICADO` con el cambio/tarea.
 7. Revisa los principios que declare `openspec/config.yaml`.
 8. Busca específicamente: secretos, migraciones ya aplicadas editadas, tests borrados o debilitados, excepciones silenciadas y cambios fuera de alcance.
 
@@ -272,8 +275,8 @@ Después:
 
 - Línea de trazabilidad: `Agente: <Entorno>/<Modelo (variante)> | Coste: <$X.XXX o ~Nk tok> | Fecha: <YYYY-MM-DD HH:mm>`. Incluye siempre la variante.
 - Resumen de 3 líneas como máximo.
-- Tabla requisito → evidencia → estado.
-- Hallazgos numerados por severidad: `CRITICAL`, `WARNING`, `SUGGESTION`. Cada uno con `archivo:línea`, qué incumple y qué se espera.
+- Tabla **escenario → evidencia → estado** con todos los escenarios del alcance.
+- Hallazgos numerados por severidad: `CRITICAL`, `WARNING`, `SUGGESTION`. Cada uno con `archivo:línea`, qué incumple y qué se espera. Agrupa por causa raíz: un mismo defecto en varios escenarios se reporta una vez con la lista de afectados y la severidad máxima.
 - `No verificado` con el motivo.
 - `Opcional` para sugerencias que no bloquean.
 

@@ -1,6 +1,6 @@
 {
   "name": "openspec-software-factory-template",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "type": "module",
   "description": "Template OpenCode-only del método OpenSpec + subagentes + gates + traza + curador",
