@@ -6,6 +6,7 @@
 //
 //   node scripts/docs-sync.mjs           corrige lo que esté desfasado
 //   node scripts/docs-sync.mjs --check   solo valida; falla si algo no cuadra
+//   node scripts/docs-sync.mjs --estado  tabla determinista de estado y siguiente comando
 //
 // Reglas:
 // - Todo .md bajo docs/ lleva frontmatter con `type` (excepto index.md y los
@@ -15,6 +16,7 @@
 //   casan con un cambio de openspec. No se toca nada más del fichero.
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -160,6 +162,221 @@ function planProblems(plan) {
   };
   for (const t of plan.tareas) visit(t.id, []);
   return [...new Set(problems)];
+}
+
+// ---------------------------------------------------------------- estado (vista determinista)
+//   node scripts/docs-sync.mjs --estado
+// Tabla fija por cambio activo y una única línea `COMANDO:`. No escribe nada.
+// Solo lee tasks.md, MEMORY.md, git y gh; un bloqueo deja el comando en `—`.
+
+function runCommand(command, args, allowStatus = [0]) {
+  const result = spawnSync(command, args, {
+    cwd: ROOT,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "ignore"],
+  });
+  if (result.error || result.status === null) return null;
+  if (!allowStatus.includes(result.status)) return null;
+  return (result.stdout ?? "").trim();
+}
+
+function gitOutput(args) {
+  return runCommand("git", args);
+}
+
+function ghOutput(args) {
+  return runCommand("gh", args);
+}
+
+function memoryOrder(text) {
+  const order = [];
+  for (const line of text.replace(/\r\n/g, "\n").split("\n")) {
+    const m = /^\|\s*`([^`]+)`\s*\|/.exec(line);
+    if (m) order.push(m[1]);
+  }
+  return order;
+}
+
+function sortChanges(changes, order) {
+  return [...changes].sort((a, b) => {
+    const ia = order.indexOf(a);
+    const ib = order.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+}
+
+function laneFor(change, branches) {
+  const lanes = branches
+    .filter((branch) =>
+      branch === `feat/${change}` ||
+      branch.startsWith(`feat/${change}-`) ||
+      branch === `paralelo/${change}` ||
+      branch.startsWith(`paralelo/${change}-`))
+    .sort((a, b) => {
+      const na = Number(a.match(/-(\d+)$/)?.[1] ?? 0);
+      const nb = Number(b.match(/-(\d+)$/)?.[1] ?? 0);
+      return na - nb || a.localeCompare(b);
+    });
+  return lanes[0] ?? null;
+}
+
+function worktreePaths() {
+  const out = gitOutput(["worktree", "list", "--porcelain"]);
+  const map = new Map();
+  if (out === null) return map;
+  let current = null;
+  for (const line of out.split("\n")) {
+    if (line.startsWith("worktree ")) current = line.slice("worktree ".length).trim();
+    else if (line.startsWith("branch ") && current) {
+      const branch = line.slice("branch ".length).trim().replace(/^refs\/heads\//, "");
+      map.set(branch, current);
+    }
+  }
+  return map;
+}
+
+function openPullRequests() {
+  const out = ghOutput(["pr", "list", "--state", "open", "--limit", "100", "--json", "number,headRefName"]);
+  if (out === null) return null;
+  try {
+    return JSON.parse(out);
+  } catch {
+    return null;
+  }
+}
+
+function pullRequestFor(lane, prs) {
+  if (!lane || !prs) return null;
+  return prs
+    .filter((pr) => pr.headRefName === lane)
+    .sort((a, b) => a.number - b.number)[0] ?? null;
+}
+
+function ciState(prNumber) {
+  const out = ghOutput(["pr", "view", String(prNumber), "--json", "statusCheckRollup"]);
+  if (out === null) return "?";
+  let data;
+  try {
+    data = JSON.parse(out);
+  } catch {
+    return "?";
+  }
+  const checks = data.statusCheckRollup;
+  if (!Array.isArray(checks) || checks.length === 0) return "—";
+  const failed = new Set(["FAILURE", "ERROR", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"]);
+  const pending = new Set(["QUEUED", "IN_PROGRESS", "PENDING", "WAITING", "EXPECTED", "REQUESTED"]);
+  const states = checks.map((check) => String(check.conclusion ?? check.state ?? check.status ?? "").toUpperCase());
+  if (states.some((state) => failed.has(state))) return "rojo";
+  if (states.some((state) => pending.has(state))) return "en curso";
+  if (states.every((state) => ["SUCCESS", "NEUTRAL", "SKIPPED"].includes(state))) return "verde";
+  return "?";
+}
+
+function laneDirty(lane, worktrees) {
+  const dir = lane ? worktrees.get(lane) : null;
+  if (!dir) return null;
+  const out = gitOutput(["-C", dir, "status", "--porcelain"]);
+  return out === null ? null : out.length > 0;
+}
+
+function planSummary(plan) {
+  const done = plan.tareas.filter((task) => task.estado === "hecha").length;
+  const total = plan.tareas.length;
+  const pending = plan.tareas.filter((task) => task.estado === "pendiente");
+  const block = pending.length > 0
+    ? Math.min(...pending.map((task) => task.bloque).filter(Number.isFinite))
+    : Math.max(...plan.bloques.map((b) => b.numero).filter(Number.isFinite));
+  return { done, total, block: Number.isFinite(block) ? String(block) : "—" };
+}
+
+function rowCommand(row, plan) {
+  if (row.estado === "completo") return `/curar ${row.change}`;
+  if (row.estado !== "listo") return "—";
+  const next = plan.siguientes[0];
+  if (!next) return "—";
+  if (next.nivel === "HARD") return `/implementar ${row.change} ${next.id}`;
+  return `/coordinar ${row.change} ${next.bloque}`;
+}
+
+function formatEstado(rows, command) {
+  const header = "| CAMBIO | TAREAS | BLOQUE | CARRIL | PR | CI | ESTADO | MOTIVO |";
+  const separator = "|---|---|---|---|---|---|---|---|";
+  const body = rows.length > 0
+    ? rows.map((row) => {
+        const tasks = row.total === 0 ? "—" : `${row.done}/${row.total}`;
+        const lane = row.lane ? `\`${row.lane}\`` : "—";
+        const pr = row.pr ? `#${row.pr}` : row.prUnknown ? "?" : "—";
+        return `| \`${row.change}\` | ${tasks} | ${row.block} | ${lane} | ${pr} | ${row.ci} | ${row.estado} | ${row.motivo} |`;
+      })
+    : ["| — | — | — | — | — | — | — | — |"];
+  return `${header}\n${separator}\n${body.join("\n")}\nCOMANDO: ${command}\n`;
+}
+
+async function buildEstado() {
+  const entries = await readdir(CHANGES, { withFileTypes: true });
+  const memory = await readFile(MEMORY, "utf8").catch(() => "");
+  const order = memoryOrder(memory);
+  const changes = sortChanges(
+    entries.filter((entry) => entry.isDirectory() && entry.name !== "archive").map((entry) => entry.name),
+    order,
+  );
+  const branches = (gitOutput(["branch", "--format=%(refname:short)"]) ?? "")
+    .split("\n")
+    .filter(Boolean);
+  const worktrees = worktreePaths();
+  const lanes = changes.map((change) => laneFor(change, branches)).filter(Boolean);
+  const prs = lanes.length > 0 ? openPullRequests() : [];
+  const rows = [];
+  for (const change of changes) {
+    const raw = await readFile(path.join(CHANGES, change, "tasks.md"), "utf8").catch(() => null);
+    if (raw === null) continue;
+    const plan = parseTaskPlan(raw, change);
+    const { done, total, block } = planSummary(plan);
+    const lane = laneFor(change, branches);
+    const pr = pullRequestFor(lane, prs);
+    const ci = pr ? ciState(pr.number) : lane && prs === null ? "?" : "—";
+    const dirty = laneDirty(lane, worktrees);
+    let estado = "listo";
+    let motivo = "—";
+    if (ci === "rojo" || dirty === true) {
+      estado = "bloqueado";
+      motivo = ci === "rojo" ? "CI rojo" : "árbol sucio";
+    } else if (ci === "en curso") {
+      estado = "esperando";
+      motivo = "CI en curso";
+    } else if (total > 0 && done === total) {
+      estado = "completo";
+    } else if (plan.siguientes.length === 0) {
+      estado = "aparcado";
+      motivo = "sin tarea lista";
+    }
+    const row = {
+      change,
+      done,
+      total,
+      block,
+      lane,
+      pr: pr?.number ?? null,
+      prUnknown: lane !== null && prs === null,
+      ci,
+      estado,
+      motivo,
+    };
+    row.command = rowCommand(row, plan);
+    rows.push(row);
+  }
+  const command = rows.find((row) => row.command !== "—")?.command ??
+    (rows.length === 0 ? '/opsx-propose "<descripción>"' : "—");
+  return { rows, command };
+}
+
+const estadoFlag = process.argv.indexOf("--estado");
+if (estadoFlag !== -1) {
+  const { rows, command } = await buildEstado();
+  process.stdout.write(formatEstado(rows, command), () => process.exit(0));
 }
 
 const planFlag = process.argv.indexOf("--plan");

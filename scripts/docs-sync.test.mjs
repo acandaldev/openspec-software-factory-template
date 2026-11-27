@@ -225,3 +225,54 @@ test("--plan falla con un ciclo o con una dependencia inexistente", async () => 
   assert.equal(missing.status, 1);
   assert.match(missing.stderr, /no existe/);
 });
+
+// ------------------------------------------------------------------ --estado
+
+const ESTADO_MEMORY = `# Memoria
+
+| Cambio | Hechas/Total | Estado |
+|---|---|---|
+| \`completo\` | 2/2 | cerrado |
+| \`pendiente\` | 1/3 | en curso |
+`;
+
+async function makeEstadoProject() {
+  const root = await mkdtemp(path.join(tmpdir(), "docs-sync-estado-"));
+  await mkdir(path.join(root, "scripts"), { recursive: true });
+  await mkdir(path.join(root, "docs"), { recursive: true });
+  await mkdir(path.join(root, "openspec", "changes", "completo"), { recursive: true });
+  await mkdir(path.join(root, "openspec", "changes", "pendiente"), { recursive: true });
+  await cp(SCRIPT, path.join(root, "scripts", "docs-sync.mjs"));
+  await writeFile(path.join(root, "docs", "guia.md"), "---\ntype: guia\n---\n\n# Guía\n", "utf8");
+  await writeFile(path.join(root, "MEMORY.md"), ESTADO_MEMORY, "utf8");
+  await writeFile(path.join(root, "AGENTS.md"), "# AGENTS\n", "utf8");
+  await writeFile(
+    path.join(root, "openspec", "changes", "completo", "tasks.md"),
+    "# Tareas\n\n## 1. A\n\n- [x] 1.1 Hecha\n- [x] 1.2 Hecha\n",
+    "utf8",
+  );
+  await writeFile(
+    path.join(root, "openspec", "changes", "pendiente", "tasks.md"),
+    "# Tareas\n\n## 1. A\n\n- [x] 1.1 Hecha\n\n## 2. B\n\n- [ ] 2.1 Pendiente\n- [ ] 2.2 Pendiente\n",
+    "utf8",
+  );
+  spawnSync("git", ["init", "-b", "main"], { cwd: root, encoding: "utf8" });
+  return root;
+}
+
+test("--estado emite la tabla fija y prioriza cerrar el cambio completo", async () => {
+  const root = await makeEstadoProject();
+  const result = spawnSync(
+    process.execPath,
+    [path.join(root, "scripts", "docs-sync.mjs"), "--estado"],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.equal(result.status, 0, result.stderr);
+  const out = result.stdout;
+
+  assert.match(out, /^\| CAMBIO \| TAREAS \| BLOQUE \| CARRIL \| PR \| CI \| ESTADO \| MOTIVO \|$/m);
+  assert.ok(out.includes("|---|---|---|---|---|---|---|---|"));
+  assert.match(out, /\| `completo` \| 2\/2 \| 1 \| — \| — \| — \| completo \| — \|/);
+  assert.match(out, /\| `pendiente` \| 1\/3 \| 2 \| — \| — \| — \| listo \| — \|/);
+  assert.match(out, /^COMANDO: \/curar completo$/m);
+});

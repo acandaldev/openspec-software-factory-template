@@ -122,7 +122,7 @@ npm test
 | Comando | Cuándo | Qué hace |
 |---|---|---|
 | `/opsx-propose` | Antes de código | Crea proposal, spec, design y tasks. |
-| `/estado` | Cuando no sabes qué toca | Lee plan, git, PR y CI; recomienda el siguiente comando o carril. Solo lectura. |
+| `/estado` | Cuando no sabes qué toca | Ejecuta `docs-sync --estado`: tabla fija por cambio y siguiente comando. Solo lectura. |
 | `/implementar` | Una tarea | Brief + `implementer`; gates y commit en el worktree del bloque. |
 | `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
 | `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
