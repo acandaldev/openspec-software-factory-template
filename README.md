@@ -4,56 +4,11 @@ Template ejecutable del método **OpenSpec + subagentes + gates + traza + curado
 
 La v0.1 es **OpenCode-only**. No incluye datos, dominios, rutas, modelos ni secretos de ningún proyecto concreto: cada proyecto ejecuta `bootstrap.mjs` y escribe su propio contrato.
 
-## Método y adaptador
-
-El método es portable: el contrato (`AGENTS.md`), las especificaciones (`openspec/`), los gates, la traza, la documentación y el curador viven en ficheros y git.
-
-La v0.1 usa **OpenCode como implementación de referencia**. `.opencode/agents/`, `.opencode/commands/`, `opencode.jsonc`, los permisos y los seis modelos son su adaptador. Cambiar de harness exige traducir esa capa, no reescribir el método.
-
-| Capa | Dónde | ¿Portable? |
-|---|---|---|
-| Método | `AGENTS.md`, `openspec/`, `docs/`, `MEMORY.md`, `scripts/`, git y CI | Sí |
-| Adaptador OpenCode v0.1 | `.opencode/`, `opencode.jsonc`, modelos, permisos y comandos | No; se traduce |
-
-## Qué incluye
-
-- `AGENTS.md` con placeholders: contrato de proyecto, comandos, ramas, triaje y memoria.
-- Tres subagentes de OpenCode: `implementer`, `reviewer` y `openspec-reviewer`.
-- Comandos del adaptador OpenCode: `/implementar`, `/revisar`, `/coordinar`, `/curar`, `/openspec-review` y `/estado`.
-- `scripts/docs-sync.mjs`: genera `docs/index.md`, compacta `tasks.md`, archiva el detalle en `tasks-history.md` y corrige el avance de `MEMORY.md`.
-- `scripts/worktree-deps.mjs`: enlaza `worktree.sharedDirs` cuando el lockfile coincide por SHA-256 y limpia enlaces y `.codegraph/` al cerrar el worktree.
-- `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
-- `bootstrap.mjs`: sustituye placeholders, escribe `harness.config.json` y valida el resultado.
-- `template.json`: manifiesto legible por máquina (versión, harness, repositorio, sitio, comandos y agentes). El sitio lo copia y comprueba que no diverge.
-- Tests de `docs-sync`, `worktree-deps`, `bootstrap`, del manifiesto y de permisos de agentes.
-- Workflow de CI para documentación, tests y secretos.
-- `docs/harness.md` como registro de refinamientos y `MEMORY.md` como memoria operativa.
-
-## Qué no incluye
-
-- Un segundo harness (otros agentes o CLIs).
-- Wiki implementada; queda fuera de la v0.1.
-- Panel de métricas: la traza vive en git y en `tasks.md`.
-- Código, datos o infraestructura de ningún proyecto.
-
-## Módulos opcionales
-
-- `codegraph`: índice local de código por MCP, **desactivado por defecto**. No es una dependencia del template ni de CI. Guía: `docs/codegraph.md`.
-
-## Requisitos
-
-Antes de empezar, revisa qué hay que instalar y qué se da por hecho. El harness funciona en Windows (Git Bash o WSL) y Linux; PowerShell no está soportado para los gates:
-
-| Necesitas | Cómo | Para qué |
-|---|---|---|
-| **OpenCode** | Instalar: [opencode.ai/docs](https://opencode.ai/docs/) · Windows: binario standalone | Harness de la v0.1: subagentes, permisos y comandos. |
-| **OpenSpec** | Instalar: [openspec.dev/docs/installation](https://openspec.dev/docs/installation) · o `npm i -g @fission-ai/openspec@latest` (Node 22.20+) | Especificaciones y tareas; `openspec init` si el proyecto no lo tiene. |
-| **Node.js 22+** | Instalar: [nodejs.org](https://nodejs.org/) (LTS 22) | Solo el harness y el CI: bootstrap, `docs-sync`, `worktree-deps`, plan y tests. El producto no lo necesita. |
-| **Git y CI** | Tener ya: [git-scm.com](https://git-scm.com/downloads) y tu CI | Ramas, commits y PR; GitHub Actions en la implementación de referencia. |
-| **Bash** | Tener ya: Git Bash (incluido en Git for Windows) o `wsl --install` | Los agentes ejecutan los gates ahí; PowerShell no está soportado. |
-| **Modelos de OpenCode** | Configurar: `/connect` en OpenCode · [providers](https://opencode.ai/docs/providers) | Los seis IDs del bootstrap deben existir en tu instalación. |
+La guía completa, con el ejemplo y la FAQ de comandos, está en [acandaldev.github.io/openspec-software-factory](https://acandaldev.github.io/openspec-software-factory/).
 
 ## Puesta en marcha
+
+Necesitas OpenCode, OpenSpec, Node.js 22+ y Bash; el detalle está en [Requisitos](#requisitos).
 
 1. Crea el repositorio del proyecto desde este template (botón **Use this template** de GitHub) o copia el contenido en un proyecto existente.
 2. Inicializa OpenSpec si el proyecto aún no lo tiene (`openspec init`). Crea `openspec/config.yaml`; sin él, `/opsx-*` y `openspec validate` no funcionan.
@@ -99,6 +54,70 @@ npm test
 
 6. Crea el primer cambio con `/opsx-propose <cambio>`.
 
+## Requisitos
+
+Antes de empezar, revisa qué hay que instalar y qué se da por hecho. El harness funciona en Windows (Git Bash o WSL) y Linux; PowerShell no está soportado para los gates:
+
+| Necesitas | Cómo | Para qué |
+|---|---|---|
+| **OpenCode** | Instalar: [opencode.ai/docs](https://opencode.ai/docs/) · Windows: binario standalone | Harness de la v0.1: subagentes, permisos y comandos. |
+| **OpenSpec** | Instalar: [openspec.dev/docs/installation](https://openspec.dev/docs/installation) · o `npm i -g @fission-ai/openspec@latest` (Node 22.20+) | Especificaciones y tareas; `openspec init` si el proyecto no lo tiene. |
+| **Node.js 22+** | Instalar: [nodejs.org](https://nodejs.org/) (LTS 22) | Solo el harness y el CI: bootstrap, `docs-sync`, `worktree-deps`, plan y tests. El producto no lo necesita. |
+| **Git y CI** | Tener ya: [git-scm.com](https://git-scm.com/downloads) y tu CI | Ramas, commits y PR; GitHub Actions en la implementación de referencia. |
+| **Bash** | Tener ya: Git Bash (incluido en Git for Windows) o `wsl --install` | Los agentes ejecutan los gates ahí; PowerShell no está soportado. |
+| **Modelos de OpenCode** | Configurar: `/connect` en OpenCode · [providers](https://opencode.ai/docs/providers) | Los seis IDs del bootstrap deben existir en tu instalación. |
+
+## Comandos
+
+| Comando | Cuándo | Qué hace |
+|---|---|---|
+| `/opsx-propose` | Antes de código | Crea proposal, spec, design y tasks. |
+| `/estado` | Cuando no sabes qué toca | Ejecuta `docs-sync --estado`: tabla fija por cambio y siguiente comando. Solo lectura. |
+| `/implementar` | Una tarea | Brief + `implementer`; gates y commit en el worktree del bloque. |
+| `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
+| `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
+| `/curar` | Cierre de bloque o cambio; `--semana` opcional | Propone filas para `docs/harness.md`; no cambia reglas sin aprobación. |
+| `/openspec-review` | Antes de codificar o al cerrar un cambio | Revisa coherencia entre artefactos. |
+| `/opsx-verify`, `/opsx-sync`, `/opsx-archive` | Cierre | Verifica, sincroniza y archiva. |
+
+`/opsx-*` vienen de OpenSpec; el resto los aporta el template.
+
+## Método y adaptador
+
+El método es portable: el contrato (`AGENTS.md`), las especificaciones (`openspec/`), los gates, la traza, la documentación y el curador viven en ficheros y git.
+
+La v0.1 usa **OpenCode como implementación de referencia**. `.opencode/agents/`, `.opencode/commands/`, `opencode.jsonc`, los permisos y los seis modelos son su adaptador. Cambiar de harness exige traducir esa capa, no reescribir el método.
+
+| Capa | Dónde | ¿Portable? |
+|---|---|---|
+| Método | `AGENTS.md`, `openspec/`, `docs/`, `MEMORY.md`, `scripts/`, git y CI | Sí |
+| Adaptador OpenCode v0.1 | `.opencode/`, `opencode.jsonc`, modelos, permisos y comandos | No; se traduce |
+
+## Qué incluye
+
+- `AGENTS.md` con placeholders: contrato de proyecto, comandos, ramas, triaje y memoria.
+- Tres subagentes de OpenCode: `implementer`, `reviewer` y `openspec-reviewer`.
+- Comandos del adaptador OpenCode: `/implementar`, `/revisar`, `/coordinar`, `/curar`, `/openspec-review` y `/estado`.
+- `scripts/docs-sync.mjs`: genera `docs/index.md`, compacta `tasks.md`, archiva el detalle en `tasks-history.md` y corrige el avance de `MEMORY.md`.
+- `scripts/worktree-deps.mjs`: enlaza `worktree.sharedDirs` cuando el lockfile coincide por SHA-256 y limpia enlaces y `.codegraph/` al cerrar el worktree.
+- `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
+- `bootstrap.mjs`: sustituye placeholders, escribe `harness.config.json` y valida el resultado.
+- `template.json`: manifiesto legible por máquina (versión, harness, repositorio, sitio, comandos y agentes). El sitio lo copia y comprueba que no diverge.
+- Tests de `docs-sync`, `worktree-deps`, `bootstrap`, del manifiesto y de permisos de agentes.
+- Workflow de CI para documentación, tests y secretos.
+- `docs/harness.md` como registro de refinamientos y `MEMORY.md` como memoria operativa.
+
+## Qué no incluye
+
+- Un segundo harness (otros agentes o CLIs).
+- Wiki implementada; queda fuera de la v0.1.
+- Panel de métricas: la traza vive en git y en `tasks.md`.
+- Código, datos o infraestructura de ningún proyecto.
+
+## Módulos opcionales
+
+- `codegraph`: índice local de código por MCP, **desactivado por defecto**. No es una dependencia del template ni de CI. Guía: `docs/codegraph.md`.
+
 ## Estructura
 
 | Ruta | Para qué |
@@ -116,21 +135,6 @@ npm test
 | `openspec/changes/` | Cambios activos. |
 | `openspec/specs/` | Especificaciones vivas. |
 | `MEMORY.md` | Estado operativo, no registro histórico. |
-
-## Comandos
-
-| Comando | Cuándo | Qué hace |
-|---|---|---|
-| `/opsx-propose` | Antes de código | Crea proposal, spec, design y tasks. |
-| `/estado` | Cuando no sabes qué toca | Ejecuta `docs-sync --estado`: tabla fija por cambio y siguiente comando. Solo lectura. |
-| `/implementar` | Una tarea | Brief + `implementer`; gates y commit en el worktree del bloque. |
-| `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
-| `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |
-| `/curar` | Cierre de bloque o cambio; `--semana` opcional | Propone filas para `docs/harness.md`; no cambia reglas sin aprobación. |
-| `/openspec-review` | Antes de codificar o al cerrar un cambio | Revisa coherencia entre artefactos. |
-| `/opsx-verify`, `/opsx-sync`, `/opsx-archive` | Cierre | Verifica, sincroniza y archiva. |
-
-`/opsx-*` vienen de OpenSpec; el resto los aporta el template.
 
 ## Niveles y modelos
 
