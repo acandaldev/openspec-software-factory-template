@@ -49,6 +49,7 @@ Si no hay evidencia suficiente, di «no hay nada que curar» y para. Si queda ev
 
 - Muestra las filas y pide aprobación explícita. No edites `AGENTS.md`, comandos, scripts ni permisos en este paso.
 - Si el usuario aprueba una fila que cambia una regla, aplica el cambio mínimo en el fichero correspondiente y actualiza `Commit` con el hash real.
+- Si la fila toca `AGENTS.md`, un agente o un comando, propágala en la misma tanda al sitio: `data/template.json` (con la versión del manifiesto al día si cambia la lista de comandos o agentes) y las páginas de `content/` de los idiomas afectados, más los readme que lo indexen. Una fila aplicada solo en el template deja el sitio publicado atrás.
 - Añade las filas aprobadas al final de `docs/harness.md` §2, sin reordenar las existentes.
 - Ejecuta `node scripts/docs-sync.mjs --check`; si falla, corrige solo lo que haya introducido el curador.
 - Haz commit de `docs(harness): registra <resumen>` con las filas; no empujes salvo que el usuario lo pida.
