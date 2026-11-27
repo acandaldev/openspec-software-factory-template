@@ -293,7 +293,7 @@ function planSummary(plan) {
 }
 
 function rowCommand(row, plan) {
-  if (row.estado === "completo") return `/opsx-verify ${row.change}`;
+  if (row.estado === "completo") return `/opsx-archive ${row.change}`;
   if (row.estado !== "listo") return "—";
   const next = plan.siguientes[0];
   if (!next) return "—";

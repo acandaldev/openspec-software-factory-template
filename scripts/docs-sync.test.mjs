@@ -260,7 +260,7 @@ async function makeEstadoProject() {
   return root;
 }
 
-test("--estado emite la tabla fija y manda verificar el cambio completo", async () => {
+test("--estado emite la tabla fija y manda archivar el cambio completo", async () => {
   const root = await makeEstadoProject();
   const result = spawnSync(
     process.execPath,
@@ -274,5 +274,5 @@ test("--estado emite la tabla fija y manda verificar el cambio completo", async 
   assert.ok(out.includes("|---|---|---|---|---|---|---|---|"));
   assert.match(out, /\| `completo` \| 2\/2 \| 1 \| — \| — \| — \| completo \| — \|/);
   assert.match(out, /\| `pendiente` \| 1\/3 \| 2 \| — \| — \| — \| listo \| — \|/);
-  assert.match(out, /^COMANDO: \/opsx-verify completo$/m);
+  assert.match(out, /^COMANDO: \/opsx-archive completo$/m);
 });
