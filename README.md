@@ -19,7 +19,7 @@ La v0.1 usa **OpenCode como implementación de referencia**. `.opencode/agents/`
 
 - `AGENTS.md` con placeholders: contrato de proyecto, comandos, ramas, triaje y memoria.
 - Tres subagentes de OpenCode: `implementer`, `reviewer` y `openspec-reviewer`.
-- Comandos del adaptador OpenCode: `/implementar`, `/revisar`, `/coordinar`, `/curar` y `/openspec-review`.
+- Comandos del adaptador OpenCode: `/implementar`, `/revisar`, `/coordinar`, `/curar`, `/openspec-review` y `/estado`.
 - `scripts/docs-sync.mjs`: genera `docs/index.md`, compacta `tasks.md`, archiva el detalle en `tasks-history.md` y corrige el avance de `MEMORY.md`.
 - `scripts/worktree-deps.mjs`: enlaza `worktree.sharedDirs` cuando el lockfile coincide por SHA-256 y limpia enlaces y `.codegraph/` al cerrar el worktree.
 - `scripts/check-secrets.mjs`: gate de credenciales y términos prohibidos.
@@ -122,6 +122,7 @@ npm test
 | Comando | Cuándo | Qué hace |
 |---|---|---|
 | `/opsx-propose` | Antes de código | Crea proposal, spec, design y tasks. |
+| `/estado` | Cuando no sabes qué toca | Lee plan, git, PR y CI; recomienda el siguiente comando o carril. Solo lectura. |
 | `/implementar` | Una tarea | Brief + `implementer`; gates y commit en el worktree del bloque. |
 | `/revisar` | Tarea o bloque | `reviewer` sobre el rango de commits. |
 | `/coordinar` | Bloque | Encadena las tareas listas y para en las paradas. |

@@ -7,4 +7,4 @@ Mapa de `docs/`. Abre el documento y solo la sección que toque.
 | Documento | Tipo | Secciones | Estado | Revisar antes de | Tamaño |
 |---|---|---|---|---|---|
 | [CodeGraph (opcional)](codegraph.md) | Guía | módulo opcional de exploración de código con CodeGraph | stable | — | 3 KB |
-| [Cómo trabajamos: harness, bucles y refinamientos](harness.md) | Proceso | bucles, registro de refinamientos y mantenimiento del harness | stable | — | 5 KB |
+| [Cómo trabajamos: harness, bucles y refinamientos](harness.md) | Proceso | bucles, registro de refinamientos y mantenimiento del harness | stable | — | 6 KB |
